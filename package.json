@@ -1,0 +1,59 @@
+{
+  "name": "mongo-cursor-pagination-alt",
+  "version": "0.1.0",
+  "description": "Cursor-based pagination for MongoDB",
+  "license": "MIT",
+  "author": "Gustavo P. Cardoso <https://twitter.com/gustavo_pch>",
+  "repository": "github:gustavopch/mongo-cursor-pagination-alt",
+  "main": "dist/index.js",
+  "module": "dist/mongo-cursor-pagination-alt.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "prepare": "tsdx build --tsconfig ./tsconfig.build.json",
+    "build": "tsdx build --tsconfig ./tsconfig.build.json",
+    "test": "tsdx test",
+    "lint": "tsdx lint"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "dependencies": {
+    "base64-url": "^2.3.3",
+    "bson": "^4.0.3",
+    "lodash.get": "^4.4.2"
+  },
+  "peerDependencies": {
+    "mongodb": "3.x"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "8.3.5",
+    "@commitlint/config-conventional": "8.3.4",
+    "@types/base64-url": "2.2.0",
+    "@types/jest": "25.1.4",
+    "@types/lodash.get": "4.4.6",
+    "@types/mongodb": "3.5.2",
+    "husky": "4.2.3",
+    "mongodb": "3.5.5",
+    "mongodb-memory-server": "6.4.1",
+    "tsdx": "0.13.0",
+    "tslib": "1.11.1",
+    "typescript": "3.8.3"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
+}
