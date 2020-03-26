@@ -1,7 +1,7 @@
 import base64Url from 'base64-url'
 import { EJSON } from 'bson'
 import get from 'lodash.get'
-import { Collection, ObjectId } from 'mongodb'
+import { Collection, FilterQuery, ObjectId } from 'mongodb'
 
 import { defaultLimit } from './constants'
 import { BaseDocument, Direction } from './types'
@@ -11,10 +11,6 @@ type CursorObject = {
   value: any
 }
 
-type Query = {
-  [key: string]: any
-}
-
 export type FindPaginatedParams = {
   first?: number | null
   after?: string | null
@@ -22,7 +18,7 @@ export type FindPaginatedParams = {
   before?: string | null
   paginatedField?: string
   direction?: Direction
-  query?: Query
+  query?: FilterQuery<any>
   projection?: any
 }
 
@@ -163,7 +159,7 @@ const encodeCursor = (cursorObject: CursorObject): string => {
 }
 
 const extendQuery = (
-  query: Query,
+  query: FilterQuery<any>,
   cursor: CursorObject,
   paginatedField: string,
   direction: Direction,
