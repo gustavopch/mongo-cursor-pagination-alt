@@ -1,5 +1,9 @@
 import { Sandbox, createSandbox } from '../test/sandbox'
-import { FindPaginatedResult, findPaginated } from './find-paginated'
+import {
+  FindPaginatedResult,
+  findPaginated,
+  sanitizeLimit,
+} from './find-paginated'
 import { Direction } from './types'
 
 let sandbox: Sandbox
@@ -397,5 +401,19 @@ describe('findPaginated', () => {
     })
 
     expect(result.edges).toHaveLength(1)
+  })
+})
+
+describe('sanitizeLimit', () => {
+  it('clamps to a minimum', () => {
+    expect(sanitizeLimit(-10)).toBe(1)
+    expect(sanitizeLimit(-1)).toBe(1)
+    expect(sanitizeLimit(-0)).toBe(1)
+    expect(sanitizeLimit(10)).toBe(10)
+  })
+
+  it('returns default when given null or undefined', () => {
+    expect(sanitizeLimit(null)).toBe(20)
+    expect(sanitizeLimit(undefined)).toBe(20)
   })
 })
