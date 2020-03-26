@@ -147,7 +147,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
 // =====
 
 export const sanitizeLimit = (limit: number | null | undefined): number => {
-  return Math.max(1, limit || defaultLimit)
+  return Math.max(1, limit ?? defaultLimit)
 }
 
 export const decodeCursor = (cursorString: string): CursorObject => {
