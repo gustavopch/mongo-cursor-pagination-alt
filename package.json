@@ -13,7 +13,6 @@
     "src"
   ],
   "scripts": {
-    "prepare": "tsdx build --tsconfig ./tsconfig.build.json",
     "build": "tsdx build --tsconfig ./tsconfig.build.json",
     "test": "yarn check --integrity && tsdx lint && tsc --noEmit && tsdx test"
   },
