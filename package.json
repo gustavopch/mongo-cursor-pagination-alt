@@ -21,7 +21,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "tsdx lint"
+      "pre-commit": "yarn check --integrity && yarn lint && yarn test"
     }
   },
   "dependencies": {
