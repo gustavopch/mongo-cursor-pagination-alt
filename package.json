@@ -15,8 +15,7 @@
   "scripts": {
     "prepare": "tsdx build --tsconfig ./tsconfig.build.json",
     "build": "tsdx build --tsconfig ./tsconfig.build.json",
-    "test": "tsdx test",
-    "lint": "tsdx lint"
+    "test": "yarn check --integrity && tsdx lint && tsdx test"
   },
   "husky": {
     "hooks": {
