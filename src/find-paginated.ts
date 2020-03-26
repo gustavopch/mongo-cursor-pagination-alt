@@ -146,19 +146,19 @@ export const findPaginated = async <TDocument extends BaseDocument>(
 // Utils
 // =====
 
-const sanitizeLimit = (limit: number | null | undefined): number => {
+export const sanitizeLimit = (limit: number | null | undefined): number => {
   return Math.max(1, limit || defaultLimit)
 }
 
-const decodeCursor = (cursorString: string): CursorObject => {
+export const decodeCursor = (cursorString: string): CursorObject => {
   return EJSON.parse(base64Url.decode(cursorString)) as CursorObject
 }
 
-const encodeCursor = (cursorObject: CursorObject): string => {
+export const encodeCursor = (cursorObject: CursorObject): string => {
   return base64Url.encode(EJSON.stringify(cursorObject))
 }
 
-const extendQuery = (
+export const extendQuery = (
   query: FilterQuery<any>,
   cursor: CursorObject,
   paginatedField: string,
