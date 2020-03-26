@@ -105,7 +105,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
   const desiredDocuments = allDocuments.slice(0, limit)
 
   // In case we used a `direction` different from `originalDirection` to
-  // query the database, we need to reverse the results.
+  // query the database, we need to reverse the array of documents.
   if (direction !== originalDirection) {
     desiredDocuments.reverse()
   }
@@ -170,12 +170,11 @@ const extendQuery = (
     $and: [
       query,
       {
-        // Suppose we're performing a query sorted by `createdAt` on
-        // ascending direction and our cursor contains the value
-        // "2020-03-23" and the ID 1234. In that case, we want documents
-        // that are:
+        // Suppose we're performing a query sorted by `createdAt` on ascending
+        // direction and our cursor contains the value "2020-03-23" and the ID
+        // 1234. In that case, we want documents that are:
         // - created after "2020-03-23"; or
-        // - created at "2020-03-20" but with ID after 1234
+        // - created at "2020-03-23" but with ID after 1234
         $or: [
           { [paginatedField]: { [directionOperator]: cursor.value } },
           { [paginatedField]: { $eq: cursor.value }, _id: { [directionOperator]: cursor.id } }, // prettier-ignore
