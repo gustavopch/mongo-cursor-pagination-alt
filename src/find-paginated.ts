@@ -40,7 +40,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
     sort,
     projection,
     paginatingBackwards,
-  } = resolveParams(params)
+  } = normalizeParams(params)
 
   const allDocuments = await collection
     .find<TDocument>(
@@ -89,7 +89,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
 // Utils
 // =============================================================================
 
-export const resolveParams = ({
+export const normalizeParams = ({
   first,
   after,
   last,
