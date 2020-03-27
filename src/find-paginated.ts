@@ -3,13 +3,8 @@ import { EJSON } from 'bson'
 import get from 'lodash.get'
 import { Collection, FilterQuery, ObjectId } from 'mongodb'
 
-import { BaseDocument, Direction } from './types'
+import { BaseDocument, CursorObject, Direction } from './types'
 import { sanitizeLimit } from './utils'
-
-type CursorObject = {
-  id: ObjectId
-  value: any
-}
 
 export type FindPaginatedParams = {
   first?: number | null
