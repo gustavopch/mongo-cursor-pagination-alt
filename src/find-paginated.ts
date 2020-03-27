@@ -1,8 +1,7 @@
-import mapValues from 'lodash.mapvalues'
 import { Collection } from 'mongodb'
 
 import { BaseDocument, CursorObject, Projection, Query, Sort } from './types'
-import { buildCursor, decodeCursor, encodeCursor, sanitizeLimit } from './utils'
+import { buildCursor, encodeCursor, normalizeDirectionParams } from './utils'
 
 export type FindPaginatedParams = {
   first?: number | null
@@ -26,21 +25,25 @@ export type FindPaginatedResult<TDocument> = {
 
 export const findPaginated = async <TDocument extends BaseDocument>(
   collection: Collection,
-  params: FindPaginatedParams,
+  {
+    first,
+    after,
+    last,
+    before,
+    query = {},
+    sort: originalSort = {},
+    projection = {},
+  }: FindPaginatedParams,
 ): Promise<FindPaginatedResult<TDocument>> => {
-  // Some parameters only exist to provide a more intuitive DX, for example:
-  // - first/after represent the limit/cursor when paginating forwards;
-  // - last/before represent the limit/cursor when paginating backwards;
-  // But we need to resolve them into unambiguous variables that will be better
-  // suited to interact with the MongoDB driver.
-  const {
-    limit,
-    cursor,
-    query,
-    sort,
-    projection,
-    paginatingBackwards,
-  } = normalizeParams(params)
+  const { limit, cursor, sort, paginatingBackwards } = normalizeDirectionParams(
+    {
+      first,
+      after,
+      last,
+      before,
+      sort: originalSort,
+    },
+  )
 
   const allDocuments = await collection
     .find<TDocument>(
@@ -79,8 +82,8 @@ export const findPaginated = async <TDocument extends BaseDocument>(
     pageInfo: {
       startCursor: edges[0]?.cursor ?? null,
       endCursor: edges[edges.length - 1]?.cursor ?? null,
-      hasPreviousPage: paginatingBackwards ? hasMore : Boolean(params.after),
-      hasNextPage: paginatingBackwards ? Boolean(params.before) : hasMore,
+      hasPreviousPage: paginatingBackwards ? hasMore : Boolean(after),
+      hasNextPage: paginatingBackwards ? Boolean(before) : hasMore,
     },
   }
 }
@@ -88,47 +91,6 @@ export const findPaginated = async <TDocument extends BaseDocument>(
 // =============================================================================
 // Utils
 // =============================================================================
-
-export const normalizeParams = ({
-  first,
-  after,
-  last,
-  before,
-  query = {},
-  sort = {},
-  projection = {},
-}: FindPaginatedParams) => {
-  // In case our sort object doesn't contain the `_id`, we need to add it
-  if (!('_id' in sort)) {
-    sort = {
-      ...sort,
-      // Important that it's the last key of the object to take the least priority
-      _id: 1,
-    }
-  }
-
-  if (last) {
-    // Paginating backwards
-    return {
-      limit: sanitizeLimit(last),
-      cursor: before ? decodeCursor(before) : null,
-      query,
-      sort: mapValues(sort, value => value * -1),
-      projection,
-      paginatingBackwards: true,
-    }
-  }
-
-  // Paginating forwards
-  return {
-    limit: sanitizeLimit(first),
-    cursor: after ? decodeCursor(after) : null,
-    query,
-    sort,
-    projection,
-    paginatingBackwards: false,
-  }
-}
 
 export const extendQuery = (
   query: Query,
