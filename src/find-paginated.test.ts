@@ -1,9 +1,5 @@
 import { Sandbox, createSandbox } from '../test/sandbox'
-import {
-  FindPaginatedResult,
-  extendQuery,
-  findPaginated,
-} from './find-paginated'
+import { FindPaginatedResult, findPaginated } from './find-paginated'
 
 let sandbox: Sandbox
 
@@ -217,38 +213,5 @@ describe('findPaginated', () => {
     expect(result.edges[0]).toMatchObject({ node: { info: { code: 1 } } })
     expect(result.edges[1]).toMatchObject({ node: { info: { code: 2 } } })
     expect(result.edges[2]).toMatchObject({ node: { info: { code: 3 } } })
-  })
-})
-
-describe('extendQuery', () => {
-  it('generates the correct query', () => {
-    const query = {}
-
-    const sort = {
-      createdAt: 1,
-      color: -1,
-      _id: 1,
-    }
-
-    const cursor = {
-      createdAt: '2020-03-22',
-      color: 'blue',
-      _id: 4,
-    }
-
-    const extendedQuery = extendQuery(query, sort, cursor)
-
-    expect(extendedQuery).toEqual({
-      $and: [
-        query,
-        {
-          $or: [
-            { createdAt: { $gt: '2020-03-22' } },
-            { createdAt: { $eq: '2020-03-22' }, color: { $lt: 'blue' } },
-            { createdAt: { $eq: '2020-03-22' }, color: { $eq: 'blue' }, _id: { $gt: 4 } }, // prettier-ignore
-          ],
-        },
-      ],
-    })
   })
 })

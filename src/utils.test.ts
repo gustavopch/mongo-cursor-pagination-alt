@@ -2,6 +2,7 @@ import { ObjectId } from 'bson'
 
 import {
   buildCursor,
+  buildQueryFromCursor,
   decodeCursor,
   encodeCursor,
   normalizeDirectionParams,
@@ -64,6 +65,30 @@ describe('encodeCursor', () => {
 describe('decodeCursor', () => {
   it('decodes correctly', () => {
     expect(decodeCursor(cursorString)).toEqual(cursorObject)
+  })
+})
+
+describe('buildQueryFromCursor', () => {
+  it('generates the correct query', () => {
+    const sort = {
+      createdAt: 1,
+      color: -1,
+      _id: 1,
+    }
+
+    const cursor = {
+      createdAt: '2020-03-22',
+      color: 'blue',
+      _id: 4,
+    }
+
+    expect(buildQueryFromCursor(sort, cursor)).toEqual({
+      $or: [
+        { createdAt: { $gt: '2020-03-22' } },
+        { createdAt: { $eq: '2020-03-22' }, color: { $lt: 'blue' } },
+        { createdAt: { $eq: '2020-03-22' }, color: { $eq: 'blue' }, _id: { $gt: 4 } }, // prettier-ignore
+      ],
+    })
   })
 })
 
