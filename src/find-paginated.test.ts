@@ -340,7 +340,7 @@ describe('findPaginated', () => {
 
   it('behaves well when there are no results', async () => {
     const collection = await sandbox.seedCollection([
-      { code: 1, color: 'blue' },
+      { code: 1 },
       { code: 2 },
       { code: 3 },
     ])
