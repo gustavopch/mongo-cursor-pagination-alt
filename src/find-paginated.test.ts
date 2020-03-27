@@ -371,28 +371,24 @@ describe('findPaginated', () => {
     expect(result.edges[2]).toMatchObject({ node: { info: { code: 3 } } })
   })
 
-  it('clamps `first` to a minimum', async () => {
+  it('clamps `first` and `last` to a minimum', async () => {
     const collection = await sandbox.seedCollection([
       { code: 1 },
       { code: 2 },
       { code: 3 },
     ])
 
-    const result = await findPaginated(collection, {
+    let result: FindPaginatedResult<any>
+
+    // Clamps `first`
+    result = await findPaginated(collection, {
       first: -1,
     })
 
     expect(result.edges).toHaveLength(1)
-  })
 
-  it('clamps `last` to a minimum', async () => {
-    const collection = await sandbox.seedCollection([
-      { code: 1 },
-      { code: 2 },
-      { code: 3 },
-    ])
-
-    const result = await findPaginated(collection, {
+    // Clamps `last`
+    result = await findPaginated(collection, {
       last: -1,
     })
 
