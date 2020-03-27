@@ -1,6 +1,5 @@
 import { Sandbox, createSandbox } from '../test/sandbox'
 import { FindPaginatedResult, findPaginated } from './find-paginated'
-import { Direction } from './types'
 
 let sandbox: Sandbox
 
@@ -30,7 +29,7 @@ describe('findPaginated', () => {
     // First page
     result = await findPaginated(collection, {
       first: 3,
-      direction: Direction.ASC,
+      direction: 1,
     })
 
     expect(result.edges).toHaveLength(3)
@@ -44,7 +43,7 @@ describe('findPaginated', () => {
     result = await findPaginated(collection, {
       first: 3,
       after: result.pageInfo.endCursor,
-      direction: Direction.ASC,
+      direction: 1,
     })
 
     expect(result.edges).toHaveLength(3)
@@ -58,7 +57,7 @@ describe('findPaginated', () => {
     result = await findPaginated(collection, {
       first: 3,
       after: result.pageInfo.endCursor,
-      direction: Direction.ASC,
+      direction: 1,
     })
 
     expect(result.edges).toHaveLength(2)
@@ -71,7 +70,7 @@ describe('findPaginated', () => {
     result = await findPaginated(collection, {
       last: 3,
       before: result.pageInfo.startCursor,
-      direction: Direction.ASC,
+      direction: 1,
     })
 
     expect(result.edges).toHaveLength(3)
@@ -85,7 +84,7 @@ describe('findPaginated', () => {
     result = await findPaginated(collection, {
       last: 3,
       before: result.pageInfo.startCursor,
-      direction: Direction.ASC,
+      direction: 1,
     })
 
     expect(result.edges).toHaveLength(3)
@@ -113,7 +112,7 @@ describe('findPaginated', () => {
     // First page
     result = await findPaginated(collection, {
       first: 3,
-      direction: Direction.DESC,
+      direction: -1,
     })
 
     expect(result.edges).toHaveLength(3)
@@ -127,7 +126,7 @@ describe('findPaginated', () => {
     result = await findPaginated(collection, {
       first: 3,
       after: result.pageInfo.endCursor,
-      direction: Direction.DESC,
+      direction: -1,
     })
 
     expect(result.edges).toHaveLength(3)
@@ -141,7 +140,7 @@ describe('findPaginated', () => {
     result = await findPaginated(collection, {
       first: 3,
       after: result.pageInfo.endCursor,
-      direction: Direction.DESC,
+      direction: -1,
     })
 
     expect(result.edges).toHaveLength(2)
@@ -154,7 +153,7 @@ describe('findPaginated', () => {
     result = await findPaginated(collection, {
       last: 3,
       before: result.pageInfo.startCursor,
-      direction: Direction.DESC,
+      direction: -1,
     })
 
     expect(result.edges).toHaveLength(3)
@@ -168,7 +167,7 @@ describe('findPaginated', () => {
     result = await findPaginated(collection, {
       last: 3,
       before: result.pageInfo.startCursor,
-      direction: Direction.DESC,
+      direction: -1,
     })
 
     expect(result.edges).toHaveLength(3)

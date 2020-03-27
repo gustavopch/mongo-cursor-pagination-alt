@@ -1,7 +1,7 @@
 import get from 'lodash.get'
 import { Collection, FilterQuery } from 'mongodb'
 
-import { BaseDocument, CursorObject, Direction } from './types'
+import { BaseDocument, CursorObject } from './types'
 import { decodeCursor, encodeCursor, sanitizeLimit } from './utils'
 
 export type FindPaginatedParams = {
@@ -10,7 +10,7 @@ export type FindPaginatedParams = {
   last?: number | null
   before?: string | null
   paginatedField?: string
-  direction?: Direction
+  direction?: number
   query?: FilterQuery<any>
   projection?: any
 }
@@ -33,7 +33,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
     last,
     before,
     paginatedField = '_id',
-    direction: originalDirection = Direction.ASC,
+    direction: originalDirection = 1,
     query = {},
     projection,
   }: FindPaginatedParams,
@@ -47,7 +47,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
   // suited to interact with the MongoDB driver.
   let limit: number
   let cursor: CursorObject | null
-  let direction: Direction
+  let direction: number
   if (last) {
     // Paginating backwards
     limit = sanitizeLimit(last)
@@ -57,7 +57,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
     //   the same as getting the first N documents in descending direction.
     // - We want to get the last N documents in descending direction, which is
     //   the same as getting the first N documents in ascending direction.
-    direction = originalDirection === Direction.ASC ? Direction.DESC : Direction.ASC // prettier-ignore
+    direction = originalDirection * -1
   } else {
     // Paginating forwards
     limit = sanitizeLimit(first)
@@ -81,9 +81,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
       // paginated field and secondarily by the document ID (which works as a
       // tie-breaker in case multiple documents have the same value in the
       // paginated field).
-      direction === Direction.ASC
-        ? { [paginatedField]: 1, _id: 1 }
-        : { [paginatedField]: -1, _id: -1 },
+      { [paginatedField]: direction, _id: direction },
     )
     // Get 1 extra document to know if there's more after what was requested
     .limit(limit + 1)
@@ -143,9 +141,9 @@ export const extendQuery = (
   query: FilterQuery<any>,
   cursor: CursorObject,
   paginatedField: string,
-  direction: Direction,
+  direction: number,
 ) => {
-  const directionOperator = direction === Direction.ASC ? '$gt' : '$lt'
+  const directionOperator = direction < 0 ? '$lt' : '$gt'
 
   return {
     $and: [
