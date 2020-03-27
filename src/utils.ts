@@ -18,10 +18,10 @@ export const buildCursor = <TDocument extends BaseDocument>(
   }, {} as CursorObject)
 }
 
-export const decodeCursor = (cursorString: string): CursorObject => {
-  return EJSON.parse(base64Url.decode(cursorString)) as CursorObject
-}
-
 export const encodeCursor = (cursorObject: CursorObject): string => {
   return base64Url.encode(EJSON.stringify(cursorObject))
+}
+
+export const decodeCursor = (cursorString: string): CursorObject => {
+  return EJSON.parse(base64Url.decode(cursorString)) as CursorObject
 }
