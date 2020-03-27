@@ -4,6 +4,7 @@ import get from 'lodash.get'
 import { Collection, FilterQuery, ObjectId } from 'mongodb'
 
 import { BaseDocument, Direction } from './types'
+import { sanitizeLimit } from './utils'
 
 type CursorObject = {
   id: ObjectId
@@ -144,10 +145,6 @@ export const findPaginated = async <TDocument extends BaseDocument>(
 // =============================================================================
 // Utils
 // =============================================================================
-
-export const sanitizeLimit = (limit: number | null | undefined): number => {
-  return Math.max(1, limit ?? 20)
-}
 
 export const decodeCursor = (cursorString: string): CursorObject => {
   return EJSON.parse(base64Url.decode(cursorString)) as CursorObject
