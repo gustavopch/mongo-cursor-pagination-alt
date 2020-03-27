@@ -16,85 +16,7 @@ afterAll(async () => {
 })
 
 describe('findPaginated', () => {
-  it('paginates forwards and backwards', async () => {
-    const collection = await sandbox.seedCollection([
-      { code: 1 },
-      { code: 2 },
-      { code: 3 },
-      { code: 4 },
-      { code: 5 },
-      { code: 6 },
-      { code: 7 },
-      { code: 8 },
-    ])
-
-    let result: FindPaginatedResult<any>
-
-    // First page
-    result = await findPaginated(collection, {
-      first: 3,
-    })
-
-    expect(result.edges).toHaveLength(3)
-    expect(result.edges[0]).toMatchObject({ node: { code: 1 } })
-    expect(result.edges[1]).toMatchObject({ node: { code: 2 } })
-    expect(result.edges[2]).toMatchObject({ node: { code: 3 } })
-    expect(result.pageInfo.hasPreviousPage).toBe(false)
-    expect(result.pageInfo.hasNextPage).toBe(true)
-
-    // Second page
-    result = await findPaginated(collection, {
-      first: 3,
-      after: result.pageInfo.endCursor,
-    })
-
-    expect(result.edges).toHaveLength(3)
-    expect(result.edges[0]).toMatchObject({ node: { code: 4 } })
-    expect(result.edges[1]).toMatchObject({ node: { code: 5 } })
-    expect(result.edges[2]).toMatchObject({ node: { code: 6 } })
-    expect(result.pageInfo.hasPreviousPage).toBe(true)
-    expect(result.pageInfo.hasNextPage).toBe(true)
-
-    // Third page
-    result = await findPaginated(collection, {
-      first: 3,
-      after: result.pageInfo.endCursor,
-    })
-
-    expect(result.edges).toHaveLength(2)
-    expect(result.edges[0]).toMatchObject({ node: { code: 7 } })
-    expect(result.edges[1]).toMatchObject({ node: { code: 8 } })
-    expect(result.pageInfo.hasPreviousPage).toBe(true)
-    expect(result.pageInfo.hasNextPage).toBe(false)
-
-    // Back to second page
-    result = await findPaginated(collection, {
-      last: 3,
-      before: result.pageInfo.startCursor,
-    })
-
-    expect(result.edges).toHaveLength(3)
-    expect(result.edges[0]).toMatchObject({ node: { code: 4 } })
-    expect(result.edges[1]).toMatchObject({ node: { code: 5 } })
-    expect(result.edges[2]).toMatchObject({ node: { code: 6 } })
-    expect(result.pageInfo.hasPreviousPage).toBe(true)
-    expect(result.pageInfo.hasNextPage).toBe(true)
-
-    // Back to first page
-    result = await findPaginated(collection, {
-      last: 3,
-      before: result.pageInfo.startCursor,
-    })
-
-    expect(result.edges).toHaveLength(3)
-    expect(result.edges[0]).toMatchObject({ node: { code: 1 } })
-    expect(result.edges[1]).toMatchObject({ node: { code: 2 } })
-    expect(result.edges[2]).toMatchObject({ node: { code: 3 } })
-    expect(result.pageInfo.hasPreviousPage).toBe(false)
-    expect(result.pageInfo.hasNextPage).toBe(true)
-  })
-
-  it('orders results according to the given `sort`', async () => {
+  it('paginates forwards and backwards with a custom `sort`', async () => {
     const collection = await sandbox.seedCollection([
       { createdAt: '2020-03-20', color: 'green', _id: 1 },
       { createdAt: '2020-03-21', color: 'green', _id: 2 },
@@ -295,30 +217,6 @@ describe('findPaginated', () => {
     expect(result.edges[0]).toMatchObject({ node: { info: { code: 1 } } })
     expect(result.edges[1]).toMatchObject({ node: { info: { code: 2 } } })
     expect(result.edges[2]).toMatchObject({ node: { info: { code: 3 } } })
-  })
-
-  it('clamps `first` and `last` to a minimum', async () => {
-    const collection = await sandbox.seedCollection([
-      { code: 1 },
-      { code: 2 },
-      { code: 3 },
-    ])
-
-    let result: FindPaginatedResult<any>
-
-    // Clamps `first`
-    result = await findPaginated(collection, {
-      first: -1,
-    })
-
-    expect(result.edges).toHaveLength(1)
-
-    // Clamps `last`
-    result = await findPaginated(collection, {
-      last: -1,
-    })
-
-    expect(result.edges).toHaveLength(1)
   })
 })
 
