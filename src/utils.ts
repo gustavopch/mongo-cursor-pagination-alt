@@ -5,10 +5,6 @@ import mapValues from 'lodash.mapvalues'
 
 import { BaseDocument, CursorObject, Sort } from './types'
 
-export const sanitizeLimit = (limit: number | null | undefined): number => {
-  return Math.max(1, limit ?? 20)
-}
-
 export const buildCursor = <TDocument extends BaseDocument>(
   document: TDocument,
   sort: Sort,
@@ -52,7 +48,7 @@ export const normalizeDirectionParams = ({
   if (last != null) {
     // Paginating backwards
     return {
-      limit: sanitizeLimit(last),
+      limit: Math.max(1, last ?? 20),
       cursor: before ? decodeCursor(before) : null,
       sort: mapValues(sort, value => value * -1),
       paginatingBackwards: true,
@@ -61,7 +57,7 @@ export const normalizeDirectionParams = ({
 
   // Paginating forwards
   return {
-    limit: sanitizeLimit(first),
+    limit: Math.max(1, first ?? 20),
     cursor: after ? decodeCursor(after) : null,
     sort,
     paginatingBackwards: false,
