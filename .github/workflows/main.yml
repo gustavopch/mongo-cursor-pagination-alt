@@ -30,7 +30,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Lint
-        run: yarn lint
+        run: yarn tsdx lint
 
       - name: Test
-        run: yarn test --ci --coverage --maxWorkers=2
+        run: yarn tsdx test --ci --coverage --maxWorkers=2
