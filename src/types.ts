@@ -5,6 +5,5 @@ export type BaseDocument = {
 }
 
 export type CursorObject = {
-  id: ObjectId
-  value: any
+  [key: string]: any
 }

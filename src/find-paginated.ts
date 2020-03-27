@@ -1,17 +1,16 @@
-import get from 'lodash.get'
+import mapValues from 'lodash.mapvalues'
 import { Collection, FilterQuery } from 'mongodb'
 
 import { BaseDocument, CursorObject } from './types'
-import { decodeCursor, encodeCursor, sanitizeLimit } from './utils'
+import { buildCursor, decodeCursor, encodeCursor, sanitizeLimit } from './utils'
 
 export type FindPaginatedParams = {
   first?: number | null
   after?: string | null
   last?: number | null
   before?: string | null
-  paginatedField?: string
-  direction?: number
   query?: FilterQuery<any>
+  sort?: { [key: string]: number }
   projection?: any
 }
 
@@ -27,43 +26,21 @@ export type FindPaginatedResult<TDocument> = {
 
 export const findPaginated = async <TDocument extends BaseDocument>(
   collection: Collection,
-  {
-    first,
-    after,
-    last,
-    before,
-    paginatedField = '_id',
-    direction: originalDirection = 1,
-    query = {},
-    projection,
-  }: FindPaginatedParams,
+  params: FindPaginatedParams,
 ): Promise<FindPaginatedResult<TDocument>> => {
   // Some parameters only exist to provide a more intuitive DX, for example:
   // - first/after represent the limit/cursor when paginating forwards;
   // - last/before represent the limit/cursor when paginating backwards;
-  // - first/after on asc direction are the same as last/before on desc direction;
-  // - first/after on desc direction are the same as last/before on asc direction;
   // But we need to resolve them into unambiguous variables that will be better
   // suited to interact with the MongoDB driver.
-  let limit: number
-  let cursor: CursorObject | null
-  let direction: number
-  if (last) {
-    // Paginating backwards
-    limit = sanitizeLimit(last)
-    cursor = before ? decodeCursor(before) : null
-    // There are two possible cases here:
-    // - We want to get the last N documents in ascending direction, which is
-    //   the same as getting the first N documents in descending direction.
-    // - We want to get the last N documents in descending direction, which is
-    //   the same as getting the first N documents in ascending direction.
-    direction = originalDirection * -1
-  } else {
-    // Paginating forwards
-    limit = sanitizeLimit(first)
-    cursor = after ? decodeCursor(after) : null
-    direction = originalDirection
-  }
+  const {
+    limit,
+    cursor,
+    query,
+    sort,
+    projection,
+    paginatingBackwards,
+  } = resolveParams(params)
 
   const allDocuments = await collection
     .find<TDocument>(
@@ -71,18 +48,12 @@ export const findPaginated = async <TDocument extends BaseDocument>(
         ? // When no cursor is given, we do nothing special, just use whatever
           // query we received from parameters.
           query
-        : // But when we receive a cursor, we must make sure only results AFTER
-          // the given cursor are returned, so we need to add an extra condition
-          // apart from the query we received from parameters.
-          extendQuery(query, cursor, paginatedField, direction),
+        : // But when we receive a cursor, we must make sure only results after
+          // (or before) the given cursor are returned, so we need to add an
+          // extra condition.
+          extendQuery(query, sort, cursor),
     )
-    .sort(
-      // Here we simply determine that sorting will be done primarily by the
-      // paginated field and secondarily by the document ID (which works as a
-      // tie-breaker in case multiple documents have the same value in the
-      // paginated field).
-      { [paginatedField]: direction, _id: direction },
-    )
+    .sort(sort)
     // Get 1 extra document to know if there's more after what was requested
     .limit(limit + 1)
     .project(projection)
@@ -94,31 +65,12 @@ export const findPaginated = async <TDocument extends BaseDocument>(
 
   // Build an array without the extra document
   const desiredDocuments = allDocuments.slice(0, limit)
-
-  // In case we used a `direction` different from `originalDirection` to
-  // query the database, we need to reverse the array of documents.
-  if (direction !== originalDirection) {
+  if (paginatingBackwards) {
     desiredDocuments.reverse()
   }
 
-  // Now we prepare the result
-  let hasPreviousPage: boolean
-  let hasNextPage: boolean
-  if (last) {
-    // Paginating backwards
-    hasPreviousPage = hasMore
-    hasNextPage = Boolean(before)
-  } else {
-    // Paginating forwards
-    hasPreviousPage = Boolean(after)
-    hasNextPage = hasMore
-  }
-
   const edges = desiredDocuments.map(document => ({
-    cursor: encodeCursor({
-      id: document._id,
-      value: get(document, paginatedField),
-    }),
+    cursor: encodeCursor(buildCursor(document, sort)),
     node: document,
   }))
 
@@ -127,8 +79,8 @@ export const findPaginated = async <TDocument extends BaseDocument>(
     pageInfo: {
       startCursor: edges[0]?.cursor ?? null,
       endCursor: edges[edges.length - 1]?.cursor ?? null,
-      hasPreviousPage,
-      hasNextPage,
+      hasPreviousPage: paginatingBackwards ? hasMore : Boolean(params.after),
+      hasNextPage: paginatingBackwards ? Boolean(params.before) : hasMore,
     },
   }
 }
@@ -137,28 +89,102 @@ export const findPaginated = async <TDocument extends BaseDocument>(
 // Utils
 // =============================================================================
 
+export const resolveParams = ({
+  first,
+  after,
+  last,
+  before,
+  query = {},
+  sort = {},
+  projection,
+}: FindPaginatedParams) => {
+  // In case our sort object doesn't contain the `_id`, we need to add it
+  if (!('_id' in sort)) {
+    sort = {
+      ...sort,
+      // Important that it's the last key of the object to take the least priority
+      _id: 1,
+    }
+  }
+
+  if (last) {
+    // Paginating backwards
+    return {
+      limit: sanitizeLimit(last),
+      cursor: before ? decodeCursor(before) : null,
+      query,
+      sort: mapValues(sort, value => value * -1),
+      projection,
+      paginatingBackwards: true,
+    }
+  }
+
+  // Paginating forwards
+  return {
+    limit: sanitizeLimit(first),
+    cursor: after ? decodeCursor(after) : null,
+    query,
+    sort,
+    projection,
+    paginatingBackwards: false,
+  }
+}
+
 export const extendQuery = (
   query: FilterQuery<any>,
+  sort: { [key: string]: number },
   cursor: CursorObject,
-  paginatedField: string,
-  direction: number,
-) => {
-  const directionOperator = direction < 0 ? '$lt' : '$gt'
+): FilterQuery<any> => {
+  // Consider the `cursor`:
+  // { createdAt: '2020-03-22', color: 'blue', _id: 4 }
+  //
+  // And the `sort`:
+  // { createdAt: 1, color: -1 }
+  //
+  // The following table represents our documents (already sorted):
+  // ┌────────────┬───────┬─────┐
+  // │  createdAt │ color │ _id │
+  // ├────────────┼───────┼─────┤
+  // │ 2020-03-20 │ green │   1 │ <--- Line 1
+  // │ 2020-03-21 │ green │   2 │ <--- Line 2
+  // │ 2020-03-22 │ green │   3 │ <--- Line 3
+  // │ 2020-03-22 │ blue  │   4 │ <--- Line 4 (our cursor points to here)
+  // │ 2020-03-22 │ blue  │   5 │ <--- Line 5
+  // │ 2020-03-22 │ amber │   6 │ <--- Line 6
+  // │ 2020-03-23 │ green │   7 │ <--- Line 7
+  // │ 2020-03-23 │ green │   8 │ <--- Line 8
+  // └────────────┴───────┴─────┘
+  //
+  // In that case, in order to get documents starting after our cursor, we need
+  // to make sure any of the following clauses is true:
+  // - { createdAt: { $gt: '2020-03-22' } }                                          <--- Lines: 7 and 8
+  // - { createdAt: { $eq: '2020-03-22' }, color: { $lt: 'blue' } }                  <--- Lines: 6
+  // - { createdAt: { $eq: '2020-03-22' }, color: { $eq: 'blue' }, _id: { $gt: 4 } } <--- Lines: 5
+  const cursorEntries = Object.entries(cursor)
+
+  // So here we build an array of the OR clauses as mentioned above
+  const clauses = cursorEntries.reduce((clauses, [outerKey], index) => {
+    const currentCursorEntries = cursorEntries.slice(0, index + 1)
+
+    const clause = currentCursorEntries.reduce((clause, [key, value]) => {
+      // Last item in the clause uses an inequality operator
+      if (key === outerKey) {
+        const sortOrder = sort[key] ?? 1
+        const operator = sortOrder < 0 ? '$lt' : '$gt'
+        clause[key] = { [operator]: value }
+        return clause
+      }
+
+      // The rest use the equality operator
+      clause[key] = { $eq: value }
+      return clause
+    }, {} as FilterQuery<any>)
+
+    clauses.push(clause)
+    return clauses
+  }, [] as Array<FilterQuery<any>>)
 
   return {
-    $and: [
-      query,
-      {
-        // Suppose we're performing a query sorted by `createdAt` on ascending
-        // direction and our cursor contains the value "2020-03-23" and the ID
-        // 1234. In that case, we want documents that are:
-        // - created after "2020-03-23"; or
-        // - created at "2020-03-23" but with ID after 1234
-        $or: [
-          { [paginatedField]: { [directionOperator]: cursor.value } },
-          { [paginatedField]: { $eq: cursor.value }, _id: { [directionOperator]: cursor.id } }, // prettier-ignore
-        ],
-      },
-    ],
+    $and: [query, { $or: clauses }],
   }
 }

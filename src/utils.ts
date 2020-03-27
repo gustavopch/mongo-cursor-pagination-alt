@@ -1,10 +1,21 @@
 import base64Url from 'base64-url'
 import { EJSON } from 'bson'
+import get from 'lodash.get'
 
-import { CursorObject } from './types'
+import { BaseDocument, CursorObject } from './types'
 
 export const sanitizeLimit = (limit: number | null | undefined): number => {
   return Math.max(1, limit ?? 20)
+}
+
+export const buildCursor = <TDocument extends BaseDocument>(
+  document: TDocument,
+  sort: { [key: string]: number },
+): CursorObject => {
+  return Object.keys(sort).reduce((acc, key) => {
+    acc[key] = get(document, key)
+    return acc
+  }, {} as CursorObject)
 }
 
 export const decodeCursor = (cursorString: string): CursorObject => {
