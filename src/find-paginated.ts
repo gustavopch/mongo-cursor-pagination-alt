@@ -1,10 +1,8 @@
-import base64Url from 'base64-url'
-import { EJSON } from 'bson'
 import get from 'lodash.get'
-import { Collection, FilterQuery, ObjectId } from 'mongodb'
+import { Collection, FilterQuery } from 'mongodb'
 
 import { BaseDocument, CursorObject, Direction } from './types'
-import { sanitizeLimit } from './utils'
+import { decodeCursor, encodeCursor, sanitizeLimit } from './utils'
 
 export type FindPaginatedParams = {
   first?: number | null
@@ -140,14 +138,6 @@ export const findPaginated = async <TDocument extends BaseDocument>(
 // =============================================================================
 // Utils
 // =============================================================================
-
-export const decodeCursor = (cursorString: string): CursorObject => {
-  return EJSON.parse(base64Url.decode(cursorString)) as CursorObject
-}
-
-export const encodeCursor = (cursorObject: CursorObject): string => {
-  return base64Url.encode(EJSON.stringify(cursorObject))
-}
 
 export const extendQuery = (
   query: FilterQuery<any>,
