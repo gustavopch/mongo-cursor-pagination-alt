@@ -1,6 +1,12 @@
 import { ObjectId } from 'bson'
 
-import { buildCursor, decodeCursor, encodeCursor, sanitizeLimit } from './utils'
+import {
+  buildCursor,
+  decodeCursor,
+  encodeCursor,
+  normalizeDirectionParams,
+  sanitizeLimit,
+} from './utils'
 
 describe('sanitizeLimit', () => {
   it('clamps to a minimum', () => {
@@ -73,5 +79,75 @@ describe('encodeCursor', () => {
 describe('decodeCursor', () => {
   it('decodes correctly', () => {
     expect(decodeCursor(cursorString)).toEqual(cursorObject)
+  })
+})
+
+describe('normalizeDirectionParams', () => {
+  it('works well without parameters', () => {
+    const result = normalizeDirectionParams({})
+
+    expect(result).toEqual({
+      limit: 20, // Default limit
+      cursor: null,
+      sort: {
+        _id: 1, // Added implicitly
+      },
+      paginatingBackwards: false,
+    })
+  })
+
+  it('works well when paginating forwards', () => {
+    const result = normalizeDirectionParams({
+      first: 10,
+      after: cursorString,
+      sort: {
+        createdAt: 1,
+      },
+    })
+
+    expect(result).toEqual({
+      limit: 10,
+      cursor: cursorObject,
+      sort: {
+        createdAt: 1,
+        _id: 1, // Added implicitly
+      },
+      paginatingBackwards: false,
+    })
+  })
+
+  it('works well when paginating backwards', () => {
+    const result = normalizeDirectionParams({
+      last: 10,
+      before: cursorString,
+      sort: {
+        createdAt: 1,
+      },
+    })
+
+    expect(result).toEqual({
+      limit: 10,
+      cursor: cursorObject,
+      sort: {
+        // Reversed values
+        createdAt: -1,
+        _id: -1, // Added implicitly
+      },
+      paginatingBackwards: true,
+    })
+  })
+
+  it('clamps `limit` to a minimum', () => {
+    expect(normalizeDirectionParams({ first: -10 }).limit).toBe(1)
+    expect(normalizeDirectionParams({ first: -1 }).limit).toBe(1)
+    expect(normalizeDirectionParams({ first: 0 }).limit).toBe(1)
+    expect(normalizeDirectionParams({ first: 1 }).limit).toBe(1)
+    expect(normalizeDirectionParams({ first: 10 }).limit).toBe(10)
+
+    expect(normalizeDirectionParams({ last: -10 }).limit).toBe(1)
+    expect(normalizeDirectionParams({ last: -1 }).limit).toBe(1)
+    expect(normalizeDirectionParams({ last: 0 }).limit).toBe(1)
+    expect(normalizeDirectionParams({ last: 1 }).limit).toBe(1)
+    expect(normalizeDirectionParams({ last: 10 }).limit).toBe(10)
   })
 })
