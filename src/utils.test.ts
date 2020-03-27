@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson'
 
-import { buildCursor, sanitizeLimit } from './utils'
+import { buildCursor, decodeCursor, encodeCursor, sanitizeLimit } from './utils'
 
 describe('sanitizeLimit', () => {
   it('clamps to a minimum', () => {
@@ -53,5 +53,25 @@ describe('buildCursor', () => {
     expect(buildCursor(document, sort)).toEqual({
       'info.color': 'blue',
     })
+  })
+})
+
+const cursorString =
+  'eyJjcmVhdGVkQXQiOnsiJGRhdGUiOiIyMDIwLTAzLTI3VDEyOjAwOjAwWiJ9LCJfaWQiOnsiJG9pZCI6IjVlN2UwNGFiMmEyYzFjYTk2MWI2MDM5ZiJ9fQ'
+
+const cursorObject = {
+  createdAt: new Date('2020-03-27T12:00:00Z'),
+  _id: new ObjectId('5e7e04ab2a2c1ca961b6039f'),
+}
+
+describe('encodeCursor', () => {
+  it('encodes correctly', () => {
+    expect(encodeCursor(cursorObject)).toEqual(cursorString)
+  })
+})
+
+describe('decodeCursor', () => {
+  it('decodes correctly', () => {
+    expect(decodeCursor(cursorString)).toEqual(cursorObject)
   })
 })
