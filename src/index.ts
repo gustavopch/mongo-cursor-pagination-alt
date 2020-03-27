@@ -1,4 +1,9 @@
 export {
+  AggregatePaginatedParams,
+  AggregatePaginatedResult,
+  aggregatePaginated,
+} from './aggregate-paginated'
+export {
   FindPaginatedParams,
   FindPaginatedResult,
   findPaginated,
