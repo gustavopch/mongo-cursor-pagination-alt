@@ -2,7 +2,7 @@ import base64Url from 'base64-url'
 import { EJSON } from 'bson'
 import get from 'lodash.get'
 
-import { BaseDocument, CursorObject } from './types'
+import { BaseDocument, CursorObject, Sort } from './types'
 
 export const sanitizeLimit = (limit: number | null | undefined): number => {
   return Math.max(1, limit ?? 20)
@@ -10,7 +10,7 @@ export const sanitizeLimit = (limit: number | null | undefined): number => {
 
 export const buildCursor = <TDocument extends BaseDocument>(
   document: TDocument,
-  sort: { [key: string]: number },
+  sort: Sort,
 ): CursorObject => {
   return Object.keys(sort).reduce((acc, key) => {
     acc[key] = get(document, key)

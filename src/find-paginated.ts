@@ -1,7 +1,7 @@
 import mapValues from 'lodash.mapvalues'
-import { Collection, FilterQuery } from 'mongodb'
+import { Collection } from 'mongodb'
 
-import { BaseDocument, CursorObject } from './types'
+import { BaseDocument, CursorObject, Projection, Query, Sort } from './types'
 import { buildCursor, decodeCursor, encodeCursor, sanitizeLimit } from './utils'
 
 export type FindPaginatedParams = {
@@ -9,9 +9,9 @@ export type FindPaginatedParams = {
   after?: string | null
   last?: number | null
   before?: string | null
-  query?: FilterQuery<any>
-  sort?: { [key: string]: number }
-  projection?: any
+  query?: Query
+  sort?: Sort
+  projection?: Projection
 }
 
 export type FindPaginatedResult<TDocument> = {
@@ -96,7 +96,7 @@ export const normalizeParams = ({
   before,
   query = {},
   sort = {},
-  projection,
+  projection = {},
 }: FindPaginatedParams) => {
   // In case our sort object doesn't contain the `_id`, we need to add it
   if (!('_id' in sort)) {
@@ -131,10 +131,10 @@ export const normalizeParams = ({
 }
 
 export const extendQuery = (
-  query: FilterQuery<any>,
-  sort: { [key: string]: number },
+  query: Query,
+  sort: Sort,
   cursor: CursorObject,
-): FilterQuery<any> => {
+): Query => {
   // Consider the `cursor`:
   // { createdAt: '2020-03-22', color: 'blue', _id: 4 }
   //
@@ -178,11 +178,11 @@ export const extendQuery = (
       // The rest use the equality operator
       clause[key] = { $eq: value }
       return clause
-    }, {} as FilterQuery<any>)
+    }, {} as Query)
 
     clauses.push(clause)
     return clauses
-  }, [] as Array<FilterQuery<any>>)
+  }, [] as Query[])
 
   return {
     $and: [query, { $or: clauses }],
