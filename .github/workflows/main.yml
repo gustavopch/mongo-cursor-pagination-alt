@@ -34,3 +34,9 @@ jobs:
 
       - name: Test
         run: yarn tsdx test --ci --coverage --maxWorkers=2
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
