@@ -1,5 +1,5 @@
 {
-  "name": "mongo-cursor-pagination-alt",
+  "name": "@newforma/mongo-cursor-pagination-alt",
   "version": "0.1.0",
   "description": "Cursor-based pagination for MongoDB",
   "license": "MIT",
@@ -13,14 +13,9 @@
     "src"
   ],
   "scripts": {
+    "prepare": "npm run build",
     "build": "tsdx build --tsconfig ./tsconfig.build.json",
     "test": "yarn check --integrity && tsdx lint && tsc --noEmit && tsdx test"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "yarn check --integrity && lint-staged"
-    }
   },
   "dependencies": {
     "base64-url": "^2.3.3",
@@ -39,7 +34,6 @@
     "@types/lodash.get": "4.4.6",
     "@types/lodash.mapvalues": "4.6.6",
     "@types/mongodb": "3.5.2",
-    "husky": "4.2.3",
     "lint-staged": "10.0.9",
     "mongodb": "3.5.5",
     "mongodb-memory-server": "6.4.1",
