@@ -10,36 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: 12.x
 
-      - name: Use cached node_modules
-        uses: actions/cache@v1
+      - uses: actions/cache@v1
         with:
           path: node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+      - run: yarn --frozen-lockfile
 
-      - name: Lint
-        run: yarn tsdx lint
+      - run: yarn tsdx lint
 
-      - name: Test
-        run: yarn tsdx test --ci --coverage --maxWorkers=2
+      - run: yarn tsdx test --ci --coverage --maxWorkers=2
 
-      - name: Build
-        run: yarn build
+      - run: yarn build
 
-      - name: Release
+      - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
