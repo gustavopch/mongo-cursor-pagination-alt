@@ -14,7 +14,9 @@
   ],
   "scripts": {
     "build": "tsdx build --tsconfig ./tsconfig.build.json",
-    "test": "yarn check --integrity && tsdx lint src test && tsc --noEmit && tsdx test"
+    "lint": "tsdx lint src test",
+    "type-check": "tsc --noEmit",
+    "test": "tsdx test"
   },
   "dependencies": {
     "base64-url": "^2.3.3",
