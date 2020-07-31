@@ -44,7 +44,7 @@
     "mongodb": "3.5.5",
     "mongodb-memory-server": "6.4.1",
     "tsc-files": "1.0.0",
-    "tsdx": "0.13.0",
+    "tsdx": "0.13.2",
     "tslib": "1.11.1",
     "typescript": "3.8.3"
   },
