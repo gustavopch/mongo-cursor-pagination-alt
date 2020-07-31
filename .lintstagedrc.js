@@ -1,3 +1,7 @@
 module.exports = {
-  '*.{js,ts}': ['tsdx lint', 'tsc-files', 'tsdx test --passWithNoTests'],
+  '*.{js,ts}': [
+    'tsdx lint',
+    () => 'tsc --noEmit',
+    'tsdx test --passWithNoTests',
+  ],
 }
