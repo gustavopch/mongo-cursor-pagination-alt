@@ -39,7 +39,7 @@
     "@types/lodash.get": "4.4.6",
     "@types/lodash.mapvalues": "4.6.6",
     "@types/mongodb": "3.5.2",
-    "husky": "4.2.3",
+    "husky": "4.2.5",
     "lint-staged": "10.2.11",
     "mongodb": "3.5.5",
     "mongodb-memory-server": "6.4.1",
