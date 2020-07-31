@@ -16,12 +16,6 @@
     "build": "tsdx build --tsconfig ./tsconfig.build.json",
     "test": "yarn check --integrity && tsdx lint && tsc --noEmit && tsdx test"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "yarn check --integrity && lint-staged"
-    }
-  },
   "dependencies": {
     "base64-url": "^2.3.3",
     "bson": "^4.0.3",
