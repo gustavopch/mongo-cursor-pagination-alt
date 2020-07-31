@@ -53,13 +53,6 @@
       "@commitlint/config-conventional"
     ]
   },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "tsdx lint",
-      "tsc-files",
-      "tsdx test --passWithNoTests"
-    ]
-  },
   "prettier": {
     "semi": false,
     "singleQuote": true,
