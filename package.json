@@ -44,10 +44,5 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "all"
   }
 }
