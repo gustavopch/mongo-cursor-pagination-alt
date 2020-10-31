@@ -31,7 +31,6 @@
     "@commitlint/cli": "9.1.1",
     "@commitlint/config-conventional": "9.1.1",
     "@types/base64-url": "2.2.0",
-    "@types/jest": "25.1.4",
     "@types/lodash.get": "4.4.6",
     "@types/lodash.mapvalues": "4.6.6",
     "@types/mongodb": "3.5.2",
