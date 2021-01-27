@@ -1,7 +1,6 @@
-import base64Url from "base64-url";
+import * as base64Url from "base64-url";
 import { EJSON } from "bson";
-import get from "lodash.get";
-import mapValues from "lodash.mapvalues";
+import { mapValues, get } from "lodash";
 
 import { BaseDocument, CursorObject, Query, Sort } from "./types";
 
@@ -88,8 +87,8 @@ export const normalizeDirectionParams = ({
 }) => {
     // In case our sort object doesn't contain the `_id`, we need to add it
     if (!("_id" in sort)) {
+        // tslint:disable-next-line
         sort = {
-            // tslint:disable-line
             ...sort,
             // Important that it's the last key of the object to take the least priority
             _id: 1,

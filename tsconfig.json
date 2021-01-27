@@ -1,13 +1,8 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
-    "importHelpers": true,
-    "lib": ["esnext"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noImplicitReturns": true,
-    "sourceMap": true,
-    "strict": true
-  }
+    "extends": "./node_modules/@newforma/presets-lambda/configs/typescript/base.json",
+    "include": ["**/*"],
+    "exclude": ["buildOutput", "coverage", "deploy", "node_modules"],
+    "compilerOptions": {
+        "outDir": "buildOutput"
+    }
 }

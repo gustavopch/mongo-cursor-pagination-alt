@@ -1,17 +1,18 @@
 import { Sandbox, createSandbox } from "../sandbox";
 import { FindPaginatedResult, findPaginated } from "../../src/find-paginated";
+import { expect } from "@jest/globals";
 
 let sandbox: Sandbox;
 
-beforeAll(async () => {
-    sandbox = await createSandbox();
-});
-
-afterAll(async () => {
-    await sandbox.teardown();
-});
-
 describe("findPaginated", () => {
+    beforeAll(async () => {
+        sandbox = await createSandbox();
+    });
+
+    afterAll(async () => {
+        await sandbox.teardown();
+    });
+
     it("paginates forwards and backwards with a custom `sort`", async () => {
         const collection = await sandbox.seedCollection([
             { createdAt: "2020-03-20", color: "green", _id: 1 },
