@@ -1,21 +1,21 @@
-import { ObjectId } from 'bson'
+import { ObjectId } from "bson";
 
 export type BaseDocument = {
-  _id: ObjectId
-}
+    _id: ObjectId;
+};
 
 export type CursorObject = {
-  [key: string]: any
-}
+    [key: string]: any;
+};
 
 export type Query = {
-  [key: string]: any
-}
+    [key: string]: any;
+};
 
 export type Sort = {
-  [key: string]: number
-}
+    [key: string]: number;
+};
 
 export type Projection = {
-  [key: string]: any
-}
+    [key: string]: any;
+};
