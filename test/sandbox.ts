@@ -1,10 +1,10 @@
 import { Collection, MongoClient } from "mongodb";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
-export type Sandbox = {
+export interface Sandbox {
     seedCollection: (docs: any[]) => Promise<Collection>;
     teardown: () => Promise<void>;
-};
+}
 
 export const createSandbox = async (): Promise<Sandbox> => {
     jest.setTimeout(60000); // May take some extra time to download binaries

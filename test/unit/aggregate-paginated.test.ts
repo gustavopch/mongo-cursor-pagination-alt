@@ -39,9 +39,9 @@ describe("aggregatePaginated", () => {
         });
 
         expect(result.edges).toHaveLength(3);
-        expect(result.edges[0]).toMatchObject({ node: { createdAt: '2020-03-20', color: 'green', _id: 1 } }) // prettier-ignore
-        expect(result.edges[1]).toMatchObject({ node: { createdAt: '2020-03-21', color: 'green', _id: 2 } }) // prettier-ignore
-        expect(result.edges[2]).toMatchObject({ node: { createdAt: '2020-03-22', color: 'green', _id: 3 } }) // prettier-ignore
+        expect(result.edges[0]).toMatchObject({ node: { createdAt: "2020-03-20", color: "green", _id: 1 } }); // prettier-ignore
+        expect(result.edges[1]).toMatchObject({ node: { createdAt: "2020-03-21", color: "green", _id: 2 } }); // prettier-ignore
+        expect(result.edges[2]).toMatchObject({ node: { createdAt: "2020-03-22", color: "green", _id: 3 } }); // prettier-ignore
         expect(result.pageInfo.hasPreviousPage).toBe(false);
         expect(result.pageInfo.hasNextPage).toBe(true);
 
@@ -54,9 +54,9 @@ describe("aggregatePaginated", () => {
         });
 
         expect(result.edges).toHaveLength(3);
-        expect(result.edges[0]).toMatchObject({ node: { createdAt: '2020-03-22', color: 'blue', _id: 4 } }) // prettier-ignore
-        expect(result.edges[1]).toMatchObject({ node: { createdAt: '2020-03-22', color: 'blue', _id: 5 } }) // prettier-ignore
-        expect(result.edges[2]).toMatchObject({ node: { createdAt: '2020-03-22', color: 'amber', _id: 6 } }) // prettier-ignore
+        expect(result.edges[0]).toMatchObject({ node: { createdAt: "2020-03-22", color: "blue", _id: 4 } }); // prettier-ignore
+        expect(result.edges[1]).toMatchObject({ node: { createdAt: "2020-03-22", color: "blue", _id: 5 } }); // prettier-ignore
+        expect(result.edges[2]).toMatchObject({ node: { createdAt: "2020-03-22", color: "amber", _id: 6 } }); // prettier-ignore
         expect(result.pageInfo.hasPreviousPage).toBe(true);
         expect(result.pageInfo.hasNextPage).toBe(true);
 
@@ -69,8 +69,8 @@ describe("aggregatePaginated", () => {
         });
 
         expect(result.edges).toHaveLength(2);
-        expect(result.edges[0]).toMatchObject({ node: { createdAt: '2020-03-23', color: 'green', _id: 7 } }) // prettier-ignore
-        expect(result.edges[1]).toMatchObject({ node: { createdAt: '2020-03-23', color: 'green', _id: 8 } }) // prettier-ignore
+        expect(result.edges[0]).toMatchObject({ node: { createdAt: "2020-03-23", color: "green", _id: 7 } }); // prettier-ignore
+        expect(result.edges[1]).toMatchObject({ node: { createdAt: "2020-03-23", color: "green", _id: 8 } }); // prettier-ignore
         expect(result.pageInfo.hasPreviousPage).toBe(true);
         expect(result.pageInfo.hasNextPage).toBe(false);
 
@@ -83,9 +83,9 @@ describe("aggregatePaginated", () => {
         });
 
         expect(result.edges).toHaveLength(3);
-        expect(result.edges[0]).toMatchObject({ node: { createdAt: '2020-03-22', color: 'blue', _id: 4 } }) // prettier-ignore
-        expect(result.edges[1]).toMatchObject({ node: { createdAt: '2020-03-22', color: 'blue', _id: 5 } }) // prettier-ignore
-        expect(result.edges[2]).toMatchObject({ node: { createdAt: '2020-03-22', color: 'amber', _id: 6 } }) // prettier-ignore
+        expect(result.edges[0]).toMatchObject({ node: { createdAt: "2020-03-22", color: "blue", _id: 4 } }); // prettier-ignore
+        expect(result.edges[1]).toMatchObject({ node: { createdAt: "2020-03-22", color: "blue", _id: 5 } }); // prettier-ignore
+        expect(result.edges[2]).toMatchObject({ node: { createdAt: "2020-03-22", color: "amber", _id: 6 } }); // prettier-ignore
         expect(result.pageInfo.hasPreviousPage).toBe(true);
         expect(result.pageInfo.hasNextPage).toBe(true);
 
@@ -98,9 +98,9 @@ describe("aggregatePaginated", () => {
         });
 
         expect(result.edges).toHaveLength(3);
-        expect(result.edges[0]).toMatchObject({ node: { createdAt: '2020-03-20', color: 'green', _id: 1 } }) // prettier-ignore
-        expect(result.edges[1]).toMatchObject({ node: { createdAt: '2020-03-21', color: 'green', _id: 2 } }) // prettier-ignore
-        expect(result.edges[2]).toMatchObject({ node: { createdAt: '2020-03-22', color: 'green', _id: 3 } }) // prettier-ignore
+        expect(result.edges[0]).toMatchObject({ node: { createdAt: "2020-03-20", color: "green", _id: 1 } }); // prettier-ignore
+        expect(result.edges[1]).toMatchObject({ node: { createdAt: "2020-03-21", color: "green", _id: 2 } }); // prettier-ignore
+        expect(result.edges[2]).toMatchObject({ node: { createdAt: "2020-03-22", color: "green", _id: 3 } }); // prettier-ignore
         expect(result.pageInfo.hasPreviousPage).toBe(false);
         expect(result.pageInfo.hasNextPage).toBe(true);
     });
@@ -121,8 +121,8 @@ describe("aggregatePaginated", () => {
             sort: { date: 1 },
         });
 
-        expect(result.edges[0]).toMatchObject({ node: { _id: 1, date: '2020-03-15' } }) // prettier-ignore
-        expect(result.edges[1]).toMatchObject({ node: { _id: 2, date: '2020-03-22' } }) // prettier-ignore
+        expect(result.edges[0]).toMatchObject({ node: { _id: 1, date: "2020-03-15" } }); // prettier-ignore
+        expect(result.edges[1]).toMatchObject({ node: { _id: 2, date: "2020-03-22" } }); // prettier-ignore
 
         // Second page
         result = await aggregatePaginated(collection, {
@@ -132,7 +132,7 @@ describe("aggregatePaginated", () => {
             sort: { date: 1 },
         });
 
-        expect(result.edges[0]).toMatchObject({ node: { _id: 3, date: '2020-03-22' } }) // prettier-ignore
+        expect(result.edges[0]).toMatchObject({ node: { _id: 3, date: "2020-03-22" } }); // prettier-ignore
 
         // Back to first page
         result = await aggregatePaginated(collection, {
@@ -142,8 +142,8 @@ describe("aggregatePaginated", () => {
             sort: { date: 1 },
         });
 
-        expect(result.edges[0]).toMatchObject({ node: { _id: 1, date: '2020-03-15' } }) // prettier-ignore
-        expect(result.edges[1]).toMatchObject({ node: { _id: 2, date: '2020-03-22' } }) // prettier-ignore
+        expect(result.edges[0]).toMatchObject({ node: { _id: 1, date: "2020-03-15" } }); // prettier-ignore
+        expect(result.edges[1]).toMatchObject({ node: { _id: 2, date: "2020-03-22" } }); // prettier-ignore
     });
 
     it("behaves well when there are no results", async () => {

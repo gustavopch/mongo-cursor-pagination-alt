@@ -3,7 +3,7 @@ import { Collection } from "mongodb";
 import { BaseDocument, Projection, Query, Sort } from "./types";
 import { buildCursor, buildQueryFromCursor, encodeCursor, normalizeDirectionParams } from "./utils";
 
-export type FindPaginatedParams = {
+export interface FindPaginatedParams {
     first?: number | null;
     after?: string | null;
     last?: number | null;
@@ -11,9 +11,9 @@ export type FindPaginatedParams = {
     query?: Query;
     sort?: Sort;
     projection?: Projection;
-};
+}
 
-export type FindPaginatedResult<TDocument> = {
+export interface FindPaginatedResult<TDocument> {
     edges: Array<{ cursor: string; node: TDocument }>;
     pageInfo: {
         startCursor: string | null;
@@ -21,7 +21,7 @@ export type FindPaginatedResult<TDocument> = {
         hasPreviousPage: boolean;
         hasNextPage: boolean;
     };
-};
+}
 
 export const findPaginated = async <TDocument extends BaseDocument>(
     collection: Collection,

@@ -76,7 +76,7 @@ describe("buildQueryFromCursor", () => {
             $or: [
                 { createdAt: { $gt: "2020-03-22" } },
                 { createdAt: { $eq: "2020-03-22" }, color: { $lt: "blue" } },
-                { createdAt: { $eq: '2020-03-22' }, color: { $eq: 'blue' }, _id: { $gt: 4 } }, // prettier-ignore
+                { createdAt: { $eq: "2020-03-22" }, color: { $eq: "blue" }, _id: { $gt: 4 } }, // prettier-ignore
             ],
         });
     });

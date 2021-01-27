@@ -3,16 +3,16 @@ import { Collection } from "mongodb";
 import { BaseDocument, Sort } from "./types";
 import { buildCursor, buildQueryFromCursor, encodeCursor, normalizeDirectionParams } from "./utils";
 
-export type AggregatePaginatedParams = {
+export interface AggregatePaginatedParams {
     first?: number | null;
     after?: string | null;
     last?: number | null;
     before?: string | null;
     pipeline: Array<{ [key: string]: any }>;
     sort?: Sort;
-};
+}
 
-export type AggregatePaginatedResult<TDocument> = {
+export interface AggregatePaginatedResult<TDocument> {
     edges: Array<{ cursor: string; node: TDocument }>;
     pageInfo: {
         startCursor: string | null;
@@ -20,7 +20,7 @@ export type AggregatePaginatedResult<TDocument> = {
         hasPreviousPage: boolean;
         hasNextPage: boolean;
     };
-};
+}
 
 export const aggregatePaginated = async <TDocument extends BaseDocument>(
     collection: Collection,

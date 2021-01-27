@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "lint": "tslint -p tsconfig.json -c tslint.json",
+    "lint-fix": "tslint -p tsconfig.json -c tslint.json --fix",
     "prettier": "prettier --write \"{src,test}/**/*.ts\"",
     "prettier-check": "prettier --check \"{src,test}/**/*.ts\""
   },
