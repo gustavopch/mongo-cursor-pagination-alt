@@ -16,10 +16,10 @@ describe("buildCursor", () => {
             color: -1,
         };
 
-        const cursorObject = buildCursor(document, sort);
+        const cursorObj = buildCursor(document, sort);
 
-        expect(JSON.stringify(cursorObject)).toEqual('{"createdAt":"2020-03-22","color":"blue"}');
-        expect(JSON.stringify(cursorObject)).not.toEqual('{"color":"blue","createdAt":"2020-03-22"}');
+        expect(JSON.stringify(cursorObj)).toEqual('{"createdAt":"2020-03-22","color":"blue"}');
+        expect(JSON.stringify(cursorObj)).not.toEqual('{"color":"blue","createdAt":"2020-03-22"}');
     });
 
     it("understands dot notation", () => {

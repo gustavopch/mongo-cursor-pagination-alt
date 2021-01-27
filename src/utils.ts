@@ -49,25 +49,25 @@ export const buildQueryFromCursor = (sort: Sort, cursor: CursorObject): Query =>
     const cursorEntries = Object.entries(cursor);
 
     // So here we build an array of the OR clauses as mentioned above
-    const clauses = cursorEntries.reduce((clauses, [outerKey], index) => {
+    const clauses = cursorEntries.reduce((reducedClauses, [outerKey], index) => {
         const currentCursorEntries = cursorEntries.slice(0, index + 1);
 
-        const clause = currentCursorEntries.reduce((clause, [key, value]) => {
+        const clause = currentCursorEntries.reduce((reducingClause, [key, value]) => {
             // Last item in the clause uses an inequality operator
             if (key === outerKey) {
                 const sortOrder = sort[key] ?? 1;
                 const operator = sortOrder < 0 ? "$lt" : "$gt";
-                clause[key] = { [operator]: value };
-                return clause;
+                reducingClause[key] = { [operator]: value };
+                return reducingClause;
             }
 
             // The rest use the equality operator
-            clause[key] = { $eq: value };
-            return clause;
+            reducingClause[key] = { $eq: value };
+            return reducingClause;
         }, {} as Query);
 
-        clauses.push(clause);
-        return clauses;
+        reducedClauses.push(clause);
+        return reducedClauses;
     }, [] as Query[]);
 
     return { $or: clauses };
@@ -88,7 +88,7 @@ export const normalizeDirectionParams = ({
 }) => {
     // In case our sort object doesn't contain the `_id`, we need to add it
     if (!("_id" in sort)) {
-        sort = {
+        sort = { // tslint:disable-line
             ...sort,
             // Important that it's the last key of the object to take the least priority
             _id: 1,
