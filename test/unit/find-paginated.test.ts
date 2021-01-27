@@ -1,5 +1,5 @@
-import { Sandbox, createSandbox } from "../test/sandbox";
-import { FindPaginatedResult, findPaginated } from "./find-paginated";
+import { Sandbox, createSandbox } from "../sandbox";
+import { FindPaginatedResult, findPaginated } from "../../src/find-paginated";
 
 let sandbox: Sandbox;
 

@@ -1,5 +1,5 @@
-import { Sandbox, createSandbox } from "../test/sandbox";
-import { AggregatePaginatedResult, aggregatePaginated } from "./aggregate-paginated";
+import { Sandbox, createSandbox } from "../sandbox";
+import { AggregatePaginatedResult, aggregatePaginated } from "../../src/aggregate-paginated";
 
 let sandbox: Sandbox;
 

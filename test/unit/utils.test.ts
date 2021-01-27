@@ -1,6 +1,12 @@
 import { ObjectId } from "bson";
 
-import { buildCursor, buildQueryFromCursor, decodeCursor, encodeCursor, normalizeDirectionParams } from "./utils";
+import {
+    buildCursor,
+    buildQueryFromCursor,
+    decodeCursor,
+    encodeCursor,
+    normalizeDirectionParams,
+} from "../../src/utils";
 
 describe("buildCursor", () => {
     it("preserves same order of keys as in `sort`", () => {

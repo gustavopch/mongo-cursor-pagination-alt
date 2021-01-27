@@ -88,7 +88,8 @@ export const normalizeDirectionParams = ({
 }) => {
     // In case our sort object doesn't contain the `_id`, we need to add it
     if (!("_id" in sort)) {
-        sort = { // tslint:disable-line
+        sort = {
+            // tslint:disable-line
             ...sort,
             // Important that it's the last key of the object to take the least priority
             _id: 1,
