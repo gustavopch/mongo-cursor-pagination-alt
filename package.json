@@ -4,7 +4,10 @@
   "description": "Cursor-based pagination for MongoDB",
   "license": "MIT",
   "author": "Gustavo P. Cardoso <https://twitter.com/gustavo_pch>",
-  "repository": "github:gustavopch/mongo-cursor-pagination-alt",
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Newforma/mongo-cursor-pagination-alt.git"
+  },
   "main": "dist/index.js",
   "module": "dist/mongo-cursor-pagination-alt.esm.js",
   "typings": "dist/index.d.ts",
