@@ -3,7 +3,6 @@
   "version": "0.2.0",
   "description": "Cursor-based pagination for MongoDB",
   "license": "MIT",
-  "private": true,
   "author": "Gustavo P. Cardoso <https://twitter.com/gustavo_pch>",
   "repository": "github:gustavopch/mongo-cursor-pagination-alt",
   "main": "dist/index.js",
