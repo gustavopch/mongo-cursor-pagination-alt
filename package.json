@@ -5,8 +5,8 @@
   "license": "MIT",
   "author": "Gustavo P. Cardoso <https://twitter.com/gustavo_pch>",
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/Newforma/mongo-cursor-pagination-alt.git"
+    "type": "git",
+    "url": "git+https://github.com/Newforma/mongo-cursor-pagination-alt.git"
   },
   "main": "dist/index.js",
   "module": "dist/mongo-cursor-pagination-alt.esm.js",
