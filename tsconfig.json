@@ -3,6 +3,8 @@
     "include": ["**/*"],
     "exclude": ["buildOutput", "coverage", "deploy", "node_modules"],
     "compilerOptions": {
-        "outDir": "buildOutput"
+        "outDir": "buildOutput",
+        "sourceMap": true,
+        "declaration": true
     }
 }
