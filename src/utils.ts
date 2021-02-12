@@ -4,20 +4,16 @@ import { mapValues, get } from "lodash";
 
 import { BaseDocument, CursorObject, Query, Sort } from "./types";
 
-export const buildCursor = <TDocument extends BaseDocument>(document: TDocument, sort: Sort): CursorObject => {
-    return Object.keys(sort).reduce((acc, key) => {
+export const buildCursor = <TDocument extends BaseDocument>(document: TDocument, sort: Sort): CursorObject =>
+    Object.keys(sort).reduce((acc, key) => {
         acc[key] = get(document, key);
         return acc;
     }, {} as CursorObject);
-};
 
-export const encodeCursor = (cursorObject: CursorObject): string => {
-    return base64Url.encode(EJSON.stringify(cursorObject));
-};
+export const encodeCursor = (cursorObject: CursorObject): string => base64Url.encode(EJSON.stringify(cursorObject));
 
-export const decodeCursor = (cursorString: string): CursorObject => {
-    return EJSON.parse(base64Url.decode(cursorString)) as CursorObject;
-};
+export const decodeCursor = (cursorString: string): CursorObject =>
+    EJSON.parse(base64Url.decode(cursorString)) as CursorObject;
 
 export const buildQueryFromCursor = (sort: Sort, cursor: CursorObject): Query => {
     // Consider the `cursor`:
