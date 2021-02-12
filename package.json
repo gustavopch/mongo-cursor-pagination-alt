@@ -20,7 +20,7 @@
     "lint-fix": "tslint -p tsconfig.json -c tslint.json --fix",
     "prettier": "prettier --write \"{src,test}/**/*.ts\"",
     "prettier-check": "prettier --check \"{src,test}/**/*.ts\"",
-    "build": "npm run prettier-check && npm run lint && tsc -p tsconfig.json",
+    "build": "npm run prettier-check && npm run lint && tsc -p tsconfig.json && tsc -p tsconfig.build.json",
     "test": "jest"
   },
   "engines": {
