@@ -42,7 +42,8 @@ export const findPaginated = async <TDocument extends BaseDocument>(
                 : // When we receive a cursor, we must make sure only results after
                   // (or before) the given cursor are returned, so we need to add an
                   // extra condition.
-                  { $and: [query, buildQueryFromCursor(sort, cursor)] }
+                  { $and: [query, buildQueryFromCursor(sort, cursor)] },
+            {}
         )
         .sort(sort)
         // Get 1 extra document to know if there's more after what was requested
