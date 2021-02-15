@@ -21,9 +21,7 @@ export const createSandbox = async (): Promise<Sandbox> => {
     const db = client.db();
 
     let collectionCounter = 0;
-    const generateCollectionName = () => {
-        return String(collectionCounter++);
-    };
+    const generateCollectionName = () => String(collectionCounter++);
 
     return {
         seedCollection: async (docs) => {
