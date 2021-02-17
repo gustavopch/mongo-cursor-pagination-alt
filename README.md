@@ -1,5 +1,7 @@
 # mongo-cursor-pagination-alt
 
+We are publishing dist in private GitHub NPM registry.
+
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/gustavopch/mongo-cursor-pagination-alt/CI?style=flat-square)
 
 > Cursor-based pagination for MongoDB.

@@ -1,21 +1,21 @@
-import { ObjectId } from 'bson'
+import { ObjectId } from "bson";
 
-export type BaseDocument = {
-  _id: ObjectId
+export interface BaseDocument {
+    _id: ObjectId;
 }
 
-export type CursorObject = {
-  [key: string]: any
+export interface CursorObject {
+    [key: string]: any;
 }
 
-export type Query = {
-  [key: string]: any
+export interface Query {
+    [key: string]: any;
 }
 
-export type Sort = {
-  [key: string]: number
+export interface Sort {
+    [key: string]: number;
 }
 
-export type Projection = {
-  [key: string]: any
+export interface Projection {
+    [key: string]: any;
 }
