@@ -1,6 +1,6 @@
 {
   "name": "@newforma/mongo-cursor-pagination-alt",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Cursor-based pagination for MongoDB",
   "license": "MIT",
   "author": "Gustavo P. Cardoso <https://twitter.com/gustavo_pch>",
@@ -44,7 +44,7 @@
     "@newforma/presets-lambda": "4.1.0",
     "@types/base64-url": "2.2.0",
     "@types/lodash": "4.14.168",
-    "@types/mongodb": "3.6.7",
+    "@types/mongodb": "3.6.8",
     "@typescript-eslint/eslint-plugin": "4.15.1",
     "@typescript-eslint/parser": "4.15.1",
     "eslint": "7.20.0",

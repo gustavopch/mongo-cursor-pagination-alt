@@ -1,3 +1,6 @@
+## 0.3.0 
+- update `@types/mongodb` version to 3.6.8
+
 ## 0.2.0
 
 - migrated library to the private GitHub NPM Registry;
