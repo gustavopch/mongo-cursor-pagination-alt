@@ -1,6 +1,6 @@
 {
   "name": "@newforma/mongo-cursor-pagination-alt",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Cursor-based pagination for MongoDB",
   "license": "MIT",
   "author": "Gustavo P. Cardoso <https://twitter.com/gustavo_pch>",
@@ -32,9 +32,9 @@
     "indent": 4
   },
   "dependencies": {
-    "bson": "4.2.2",
     "base64-url": "2.3.3",
-    "lodash": "4.17.20"
+    "bson": "4.2.2",
+    "lodash": "4.17.21"
   },
   "peerDependencies": {
     "mongodb": "3.x"
