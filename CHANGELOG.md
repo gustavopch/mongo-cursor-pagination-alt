@@ -1,6 +1,5 @@
 ## 0.3.1
 -   Fixing dependency vulnerabilities
-
 -   Updated package.json & package-lock.json 
 
 ## 0.3.0 
