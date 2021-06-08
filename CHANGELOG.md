@@ -1,3 +1,7 @@
+## 0.3.1
+-   Fixing dependency vulnerabilities
+-   Updated package.json & package-lock.json 
+
 ## 0.3.0 
 - update `@types/mongodb` version to 3.6.8
 
