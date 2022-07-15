@@ -1,14 +1,14 @@
-import { Collection } from "mongodb";
+import { Collection, Filter } from "mongodb";
 
-import { BaseDocument, Projection, Query, Sort } from "./types";
+import { BaseDocument, Projection, Sort } from "./types";
 import { buildCursor, buildQueryFromCursor, encodeCursor, normalizeDirectionParams } from "./utils";
 
-export interface FindPaginatedParams {
+export interface FindPaginatedParams<TDocument> {
     first?: number | null;
     after?: string | null;
     last?: number | null;
     before?: string | null;
-    query?: Query;
+    filter?: Filter<TDocument>;
     sort?: Sort;
     projection?: Projection;
 }
@@ -24,8 +24,16 @@ export interface FindPaginatedResult<TDocument> {
 }
 
 export const findPaginated = async <TDocument extends BaseDocument>(
-    collection: Collection,
-    { first, after, last, before, query = {}, sort: originalSort = {}, projection = {} }: FindPaginatedParams
+    collection: Collection<TDocument>,
+    {
+        first,
+        after,
+        last,
+        before,
+        filter = {},
+        sort: originalSort = {},
+        projection = {},
+    }: FindPaginatedParams<TDocument>
 ): Promise<FindPaginatedResult<TDocument>> => {
     const { limit, cursor, sort, paginatingBackwards } = normalizeDirectionParams({
         first,
@@ -35,20 +43,19 @@ export const findPaginated = async <TDocument extends BaseDocument>(
         sort: originalSort,
     });
 
+    let findFilter: Filter<TDocument> = filter;
+    if (cursor) {
+        findFilter = <Filter<TDocument>>{
+            $and: [filter, buildQueryFromCursor(sort, cursor)],
+        };
+    }
+
     const allDocuments = await collection
-        .find<TDocument>(
-            !cursor
-                ? query
-                : // When we receive a cursor, we must make sure only results after
-                  // (or before) the given cursor are returned, so we need to add an
-                  // extra condition.
-                  { $and: [query, buildQueryFromCursor(sort, cursor)] },
-            {}
-        )
+        .find<TDocument>(findFilter, {})
         .sort(sort)
         // Get 1 extra document to know if there's more after what was requested
         .limit(limit + 1)
-        .project(projection)
+        .project<TDocument>(projection)
         .toArray();
 
     // Check whether the extra document mentioned above exists

@@ -1,22 +1,22 @@
-import { Collection, MongoClient } from "mongodb";
+import { Collection, MongoClient, MongoClientOptions } from "mongodb";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
 export interface Sandbox {
-    seedCollection: (docs: any[]) => Promise<Collection>;
+    seedCollection: <T>(docs: T[]) => Promise<Collection<T>>;
     teardown: () => Promise<void>;
 }
 
 export const createSandbox = async (): Promise<Sandbox> => {
     jest.setTimeout(60000); // May take some extra time to download binaries
-    const mongod = new MongoMemoryServer();
+    const mongod = await MongoMemoryServer.create();
     jest.setTimeout(5000);
 
-    const uri = await mongod.getUri();
-    const client = await MongoClient.connect(uri, {
+    const options: MongoClientOptions = {
         ignoreUndefined: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
+    };
+
+    const uri = mongod.getUri();
+    const client = await MongoClient.connect(uri, options);
 
     const db = client.db();
 

@@ -1,4 +1,5 @@
 import { ObjectId } from "bson";
+import { SortDirection } from "mongodb";
 
 export interface BaseDocument {
     _id: ObjectId;
@@ -13,7 +14,7 @@ export interface Query {
 }
 
 export interface Sort {
-    [key: string]: number;
+    [key: string]: SortDirection;
 }
 
 export interface Projection {

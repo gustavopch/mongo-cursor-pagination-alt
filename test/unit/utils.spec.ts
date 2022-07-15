@@ -1,6 +1,5 @@
 import { expect } from "@jest/globals";
 import { ObjectId } from "bson";
-
 import {
     buildCursor,
     buildQueryFromCursor,
@@ -8,6 +7,7 @@ import {
     encodeCursor,
     normalizeDirectionParams,
 } from "../../src/utils";
+import { Sort } from "mongodb";
 
 describe("buildCursor", () => {
     it("preserves same order of keys as in `sort`", () => {
@@ -18,7 +18,7 @@ describe("buildCursor", () => {
             name: "John Doe",
         };
 
-        const sort = {
+        const sort: Sort = {
             createdAt: 1,
             color: -1,
         };
@@ -35,7 +35,7 @@ describe("buildCursor", () => {
             info: { color: "blue" },
         };
 
-        const sort = {
+        const sort: Sort = {
             "info.color": -1,
         };
 
@@ -67,7 +67,7 @@ describe("decodeCursor", () => {
 
 describe("buildQueryFromCursor", () => {
     it("generates the correct query", () => {
-        const sort = {
+        const sort: Sort = {
             createdAt: 1,
             color: -1,
             _id: 1,

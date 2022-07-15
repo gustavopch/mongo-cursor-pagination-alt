@@ -1,7 +1,8 @@
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  testMatch: [ "**/test/unit/*.ts" ],
-  testPathIgnorePatterns: [ "/node_modules/", "/buildOutput/" ],
-  testResultsProcessor: "jest-jenkins-reporter"
+  transform: {
+    "^.+\\.ts?$": "ts-jest",
+  },
+  testEnvironment: "node",
+  moduleFileExtensions: [ "js", "ts" ],
+  testResultsProcessor: "jest-jenkins-reporter",
 };

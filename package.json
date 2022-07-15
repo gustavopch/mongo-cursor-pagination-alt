@@ -15,6 +15,7 @@
     "dist",
     "src"
   ],
+  "moduleFileExtensions": [ "ts" ],
   "scripts": {
     "lint": "eslint {src,test}/**/*.ts",
     "lint-fix": "eslint --fix {src,test}/**/*.ts",
@@ -37,25 +38,24 @@
     "lodash": "4.17.21"
   },
   "peerDependencies": {
-    "mongodb": "3.x"
+    "mongodb": "^4.8.x"
   },
   "devDependencies": {
     "@jest/globals": "26.6.2",
     "@newforma/presets-lambda": "4.1.0",
     "@types/base64-url": "2.2.0",
     "@types/lodash": "4.14.168",
-    "@types/mongodb": "3.6.8",
     "@typescript-eslint/eslint-plugin": "4.15.1",
     "@typescript-eslint/parser": "4.15.1",
     "eslint": "7.20.0",
     "eslint-config-prettier": "7.2.0",
     "jest": "26.6.3",
     "jest-jenkins-reporter": "1.0.2",
-    "mongodb": "3.6.4",
-    "mongodb-memory-server": "6.9.3",
+    "mongodb": "4.8.0",
+    "mongodb-memory-server": "8.7.2",
     "prettier": "2.2.1",
     "ts-jest": "26.5.1",
-    "typescript": "4.1.5"
+    "typescript": "4.5.5"
   },
   "prettier": "@newforma/presets-lambda"
 }

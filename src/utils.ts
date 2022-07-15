@@ -1,8 +1,8 @@
 import * as base64Url from "base64-url";
 import { EJSON } from "bson";
 import { mapValues, get } from "lodash";
-
 import { BaseDocument, CursorObject, Query, Sort } from "./types";
+import { SortDirection } from "mongodb";
 
 export const buildCursor = <TDocument extends BaseDocument>(document: TDocument, sort: Sort): CursorObject =>
     Object.keys(sort).reduce((acc, key) => {
@@ -15,7 +15,7 @@ export const encodeCursor = (cursorObject: CursorObject): string => base64Url.en
 export const decodeCursor = (cursorString: string): CursorObject =>
     EJSON.parse(base64Url.decode(cursorString)) as CursorObject;
 
-export const buildQueryFromCursor = (sort: Sort, cursor: CursorObject): Query => {
+export const buildQueryFromCursor = <T>(sort: Sort, cursor: CursorObject): Query => {
     // Consider the `cursor`:
     // { createdAt: '2020-03-22', color: 'blue', _id: 4 }
     //
@@ -96,7 +96,22 @@ export const normalizeDirectionParams = ({
         return {
             limit: Math.max(1, last ?? 20),
             cursor: before ? decodeCursor(before) : null,
-            sort: mapValues(sort, (value) => value * -1),
+            sort: mapValues(
+                sort,
+                (value): SortDirection => {
+                    switch (value) {
+                        case 1:
+                        case "asc":
+                        case "ascending":
+                        default:
+                            return -1;
+                        case -1:
+                        case "desc":
+                        case "descending":
+                            return 1;
+                    }
+                }
+            ),
             paginatingBackwards: true,
         };
     }

@@ -23,7 +23,7 @@ export interface AggregatePaginatedResult<TDocument> {
 }
 
 export const aggregatePaginated = async <TDocument extends BaseDocument>(
-    collection: Collection,
+    collection: Collection<TDocument>,
     { first, after, last, before, pipeline, sort: originalSort = {} }: AggregatePaginatedParams
 ): Promise<AggregatePaginatedResult<TDocument>> => {
     const { limit, cursor, sort, paginatingBackwards } = normalizeDirectionParams({
@@ -35,7 +35,7 @@ export const aggregatePaginated = async <TDocument extends BaseDocument>(
     });
 
     const allDocuments = await collection
-        .aggregate([
+        .aggregate<TDocument>([
             ...pipeline,
             // When we receive a cursor, we must make sure only results after
             // (or before) the given cursor are returned, so we need to add an
