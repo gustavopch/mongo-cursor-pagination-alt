@@ -20,6 +20,8 @@ export type AggregatePaginatedParams = {
 export type AggregatePaginatedResult<TDocument> = {
   edges: Array<{ cursor: string; node: TDocument }>
   pageInfo: {
+    count: number
+    totalCount: number
     startCursor: string | null
     endCursor: string | null
     hasPreviousPage: boolean
@@ -47,6 +49,15 @@ export const aggregatePaginated = async <TDocument extends BaseDocument>(
       sort: originalSort,
     },
   )
+
+  const documents = ((await collection.aggregate([
+    ...pipeline,
+    // When we receive a cursor, we must make sure only results after
+    // (or before) the given cursor are returned, so we need to add an
+    // extra condition.
+    { $match: cursor ? buildQueryFromCursor(sort, cursor) : {} },
+    { $count: 'countDocs' },
+  ])) as unknown) as { countDocs: number }
 
   const allDocuments = await collection
     .aggregate([
@@ -79,6 +90,8 @@ export const aggregatePaginated = async <TDocument extends BaseDocument>(
   return {
     edges,
     pageInfo: {
+      count: desiredDocuments.length,
+      totalCount: documents.countDocs || 0,
       startCursor: edges[0]?.cursor ?? null,
       endCursor: edges[edges.length - 1]?.cursor ?? null,
       hasPreviousPage: paginatingBackwards ? hasMore : Boolean(after),
