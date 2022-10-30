@@ -162,10 +162,12 @@ describe('aggregatePaginated', () => {
 
     expect(result.edges).toHaveLength(0)
     expect(result.pageInfo).toEqual({
+      count: 0,
       startCursor: null,
       endCursor: null,
       hasPreviousPage: false,
       hasNextPage: false,
+      totalCount: 0,
     })
   })
 
