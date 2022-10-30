@@ -12,6 +12,7 @@ export type AggregatePaginatedParams = {
   first?: number | null
   after?: string | null
   last?: number | null
+  skip?: number | null
   before?: string | null
   pipeline: Array<{ [key: string]: any }>
   sort?: Sort
@@ -36,6 +37,7 @@ export const aggregatePaginated = async <TDocument extends BaseDocument>(
     after,
     last,
     before,
+    skip,
     pipeline,
     sort: originalSort = {},
   }: AggregatePaginatedParams,
@@ -66,6 +68,7 @@ export const aggregatePaginated = async <TDocument extends BaseDocument>(
       // (or before) the given cursor are returned, so we need to add an
       // extra condition.
       { $match: cursor ? buildQueryFromCursor(sort, cursor) : {} },
+      { $skip: skip ?? 0 },
       { $sort: sort },
       // Get 1 extra document to know if there's more after what was requested
       { $limit: limit + 1 },
