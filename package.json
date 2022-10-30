@@ -1,10 +1,10 @@
 {
-  "name": "mongo-cursor-pagination-alt",
+  "name": "mongo-cursor-pagination",
   "version": "0.0.0-development",
   "description": "Cursor-based pagination for MongoDB",
   "license": "MIT",
-  "author": "Gustavo P. Cardoso <https://twitter.com/gustavo_pch>",
-  "repository": "github:gustavopch/mongo-cursor-pagination-alt",
+  "author": "Gustavo P. Cardoso <https://twitter.com/gustavo_pch> Murshid Azher <https://murshidazher.com>",
+  "repository": "github:murshidazher/mongo-cursor-pagination",
   "main": "dist/index.js",
   "module": "dist/mongo-cursor-pagination-alt.esm.js",
   "typings": "dist/index.d.ts",
