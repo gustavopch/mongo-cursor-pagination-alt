@@ -12,11 +12,7 @@ export const createSandbox = async (): Promise<Sandbox> => {
   jest.setTimeout(5000)
 
   const uri = await mongod.getUri()
-  const client = await MongoClient.connect(uri, {
-    ignoreUndefined: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  const client = await MongoClient.connect(uri)
 
   const db = client.db()
 
