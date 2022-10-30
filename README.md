@@ -1,4 +1,4 @@
-# mongo-cursor-pagination-alt
+# mongodb-cursor-pagination
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/gustavopch/mongo-cursor-pagination-alt/CI?style=flat-square)
 
@@ -8,14 +8,19 @@ Based on [mongo-cursor-pagination](https://github.com/mixmaxhq/mongo-cursor-pagi
 
 <!-- toc -->
 
-- [The problem](#the-problem)
-- [The solution](#the-solution)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API](#api)
-  - [`findPaginated`](#findpaginated)
-  - [`aggregatePaginated`](#aggregatepaginated)
-- [License](#license)
+- [mongodb-cursor-pagination](#mongodb-cursor-pagination)
+  - [The problem](#the-problem)
+  - [The solution](#the-solution)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [API](#api)
+    - [`findPaginated`](#findpaginated)
+      - [Arguments](#arguments)
+      - [Returns](#returns)
+    - [`aggregatePaginated`](#aggregatepaginated)
+      - [Arguments](#arguments-1)
+      - [Returns](#returns-1)
+  - [License](#license)
 
 <!-- tocstop -->
 
@@ -69,28 +74,37 @@ For a more thorough explanation I highly recommend reading the excellent [blog p
 ## Installation
 
 ```sh
-npm i mongo-cursor-pagination-alt
+npm i mongodb-cursor-pagination
 ```
 
 ```sh
-yarn add mongo-cursor-pagination-alt
+yarn add mongodb-cursor-pagination
 ```
 
 ## Usage
 
 ```ts
 import { MongoClient } from 'mongodb'
-import { findPaginated } from 'mongo-cursor-pagination-alt'
+import { findPaginated } from 'mongodb-cursor-pagination'
 
 const client = await MongoClient.connect(uri)
 const db = client.db()
 const collection = db.collection('users')
 
+let skipFirst20
+
+// Get third page
+skipFirst20 = await findPaginated(collection, {
+  first: 10,
+  skip: 20
+})
+
+
 let result
 
 // Get first page
 result = await findPaginated(collection, {
-  first: 10,
+  first: 10
 })
 
 // Go to second page

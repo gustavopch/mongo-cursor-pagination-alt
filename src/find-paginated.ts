@@ -12,6 +12,7 @@ export type FindPaginatedParams = {
   first?: number | null
   after?: string | null
   last?: number | null
+  skip?: number | null
   before?: string | null
   query?: Query
   sort?: Sort
@@ -37,6 +38,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
     after,
     last,
     before,
+    skip,
     query = {},
     sort: originalSort = {},
     projection = {},
@@ -72,6 +74,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
     )
     .sort(sort)
     // Get 1 extra document to know if there's more after what was requested
+    .skip(skip ?? 0)
     .limit(limit + 1)
     .project(projection)
     .toArray()
