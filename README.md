@@ -1,6 +1,6 @@
 # mongodb-cursor-pagination
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/murshidazher/mongo-cursor-pagination/CI?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/murshidazher/mongo-cursor-pagination/Release?style=flat-square)
 
 > Cursor-based pagination for MongoDB.
 
