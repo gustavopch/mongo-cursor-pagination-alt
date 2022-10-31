@@ -6,7 +6,6 @@ export type Sandbox = {
 }
 
 export const createSandbox = async (): Promise<Sandbox> => {
-  jest.setTimeout(20000)
   const uri = await global.memoryMongoDb.getUri()
   const client = await MongoClient.connect(uri)
 

@@ -17,7 +17,7 @@ specifiers:
   lodash.get: ^4.4.2
   lodash.mapvalues: ^4.6.0
   mongodb: ^4.11.0
-  mongodb-memory-server: ~8.9.4
+  mongodb-memory-server: 8.9.2
   ts-jest: ~29.0.3
   tsdx: ^0.14.1
   tslib: ~2.4.0
@@ -42,7 +42,7 @@ devDependencies:
   jest: 29.2.2
   lint-staged: 10.5.1
   mongodb: 4.11.0
-  mongodb-memory-server: 8.9.4
+  mongodb-memory-server: 8.9.2
   ts-jest: 29.0.3_boeitzaguatvcldvtfqudpgqzy
   tsdx: 0.14.1
   tslib: 2.4.0
@@ -7144,8 +7144,8 @@ packages:
       whatwg-url: 11.0.0
     dev: true
 
-  /mongodb-memory-server-core/8.9.4:
-    resolution: {integrity: sha512-qsJITBeu7KFFp31RejbK/Xm1KlwEi8I7VQQU+zzpo23fxxaJJN2j0idG016TIOpHOhngdTqLISp70bhsIRCHkg==}
+  /mongodb-memory-server-core/8.9.2:
+    resolution: {integrity: sha512-LG8u8QxPGrozy5UBg9YCh8jvvs5Di93zXrusgwgpj+vKxn+Efa6l1pFnCHNy6SYFydFCpMezilsDIXF0tzbJ6A==}
     engines: {node: '>=12.22.0'}
     dependencies:
       '@types/tmp': 0.2.3
@@ -7168,12 +7168,12 @@ packages:
       - supports-color
     dev: true
 
-  /mongodb-memory-server/8.9.4:
-    resolution: {integrity: sha512-EWrctvLuXQAKEyBQl8c8uVbIXn6GpcapY0c7sdM0ABcsgqftBmU0v0MpI65csuivalWzCsKjAuiugj88+xxUJQ==}
+  /mongodb-memory-server/8.9.2:
+    resolution: {integrity: sha512-h+u+60C/yYZStKqL13O8EerRyt2gdFg9PLyRSBJr5eJfCr+tVMoMrdCw6Dd6PKlCp5hwq27VpjvtSWAT44bHiA==}
     engines: {node: '>=12.22.0'}
     requiresBuild: true
     dependencies:
-      mongodb-memory-server-core: 8.9.4
+      mongodb-memory-server-core: 8.9.2
       tslib: 2.4.0
     transitivePeerDependencies:
       - supports-color
