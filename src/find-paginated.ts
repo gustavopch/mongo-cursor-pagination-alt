@@ -54,14 +54,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
     },
   )
 
-  const countDocuments = await collection.countDocuments(
-    !cursor
-      ? query
-      : // When we receive a cursor, we must make sure only results after
-        // (or before) the given cursor are returned, so we need to add an
-        // extra condition.
-        { $and: [query, buildQueryFromCursor(sort, cursor)] },
-  )
+  const countDocuments = await collection.countDocuments(!cursor ? query : {})
 
   const allDocuments = await collection
     .find<TDocument>(
