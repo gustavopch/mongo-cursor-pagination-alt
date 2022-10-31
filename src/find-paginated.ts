@@ -56,7 +56,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
 
   const countDocuments = await collection.countDocuments(!cursor ? query : {})
 
-  const allDocuments = await collection
+  const allDocuments = (await collection
     .find<TDocument>(
       !cursor
         ? query
@@ -70,7 +70,7 @@ export const findPaginated = async <TDocument extends BaseDocument>(
     .skip(skip ?? 0)
     .limit(limit + 1)
     .project(projection)
-    .toArray()
+    .toArray()) as TDocument[]
 
   // Check whether the extra document mentioned above exists
   const extraDocument = allDocuments[limit]

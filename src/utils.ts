@@ -98,7 +98,7 @@ export const normalizeDirectionParams = ({
       ...sort,
       // Important that it's the last key of the object to take the least priority
       _id: 1,
-    }
+    } as Sort
   }
 
   if (last != null) {
@@ -106,7 +106,7 @@ export const normalizeDirectionParams = ({
     return {
       limit: Math.max(1, last ?? 20),
       cursor: before ? decodeCursor(before) : null,
-      sort: mapValues(sort, value => value * -1),
+      sort: (mapValues(sort, (value: number) => value * -1) as unknown) as Sort,
       paginatingBackwards: true,
     }
   }

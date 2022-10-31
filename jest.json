@@ -1,0 +1,12 @@
+{
+  "verbose": true,
+  "displayName": "unit-tests",
+  "preset": "ts-jest",
+  "bail": true,
+  "testTimeout": 20000,
+  "clearMocks": true,
+  "testEnvironment": "node",
+  "reporters": ["default"],
+  "collectCoverageFrom": ["src/**/{!(index),}.ts"],
+  "testMatch": ["<rootDir>/src/**/*.test.ts"]
+}
