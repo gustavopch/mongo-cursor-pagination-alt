@@ -54,10 +54,6 @@ export const aggregatePaginated = async <TDocument extends BaseDocument>(
 
   const documents = ((await collection.aggregate([
     ...pipeline,
-    // When we receive a cursor, we must make sure only results after
-    // (or before) the given cursor are returned, so we need to add an
-    // extra condition.
-    { $match: cursor ? buildQueryFromCursor(sort, cursor) : {} },
     { $count: 'countDocs' },
   ])) as unknown) as { countDocs: number }
 
