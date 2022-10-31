@@ -27,11 +27,14 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - run: yarn tsdx lint src test
+      - name: Lint
+        run: pnpm lint
 
-      - run: yarn tsdx test --ci --coverage --maxWorkers=2
+      - name: Test
+        run: pnpm test
 
-      - run: yarn build
+      - name: Build
+        run: pnpm build
 
       - run: npx semantic-release
         env:
