@@ -6,7 +6,7 @@ const mongodbMemoryServerOptions = {
     version: '4.0.2',
     skipMD5: true,
   },
-  autoStart: false,
+  autoStart: true,
 }
 
 export { mongodbMemoryServerOptions }
