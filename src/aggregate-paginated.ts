@@ -57,7 +57,7 @@ export const aggregatePaginated = async <TDocument extends BaseDocument>(
     { $count: 'countDocs' },
   ])) as unknown) as { countDocs: number }
 
-  const allDocuments = await collection
+  const allDocuments = (await collection
     .aggregate([
       ...pipeline,
       // When we receive a cursor, we must make sure only results after
@@ -69,7 +69,7 @@ export const aggregatePaginated = async <TDocument extends BaseDocument>(
       // Get 1 extra document to know if there's more after what was requested
       { $limit: limit + 1 },
     ])
-    .toArray()
+    .toArray()) as TDocument[]
 
   // Check whether the extra document mentioned above exists
   const extraDocument = allDocuments[limit]

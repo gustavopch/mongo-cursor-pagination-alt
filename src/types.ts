@@ -12,8 +12,17 @@ export type Query = {
   [key: string]: any
 }
 
+export type SortDirection =
+  | 1
+  | -1
+  | 'asc'
+  | 'desc'
+  | 'ascending'
+  | 'descending'
+  | { $meta: string }
+
 export type Sort = {
-  [key: string]: number
+  [key: string]: SortDirection
 }
 
 export type Projection = {

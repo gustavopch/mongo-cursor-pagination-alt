@@ -1,5 +1,4 @@
 import { Collection, MongoClient } from 'mongodb'
-import { MongoMemoryServer } from 'mongodb-memory-server'
 
 export type Sandbox = {
   seedCollection: (docs: any[]) => Promise<Collection>
@@ -7,16 +6,14 @@ export type Sandbox = {
 }
 
 export const createSandbox = async (): Promise<Sandbox> => {
-  jest.setTimeout(60000) // May take some extra time to download binaries
-  const mongod = new MongoMemoryServer()
-  jest.setTimeout(5000)
-
-  const uri = await mongod.getUri()
+  jest.setTimeout(20000)
+  const uri = await global.memoryMongoDb.getUri()
   const client = await MongoClient.connect(uri)
 
   const db = client.db()
 
   let collectionCounter = 0
+
   const generateCollectionName = () => {
     return String(collectionCounter++)
   }
@@ -29,8 +26,8 @@ export const createSandbox = async (): Promise<Sandbox> => {
       return db.collection(collectionName)
     },
     teardown: async () => {
+      await db.dropDatabase()
       await client.close()
-      await mongod.stop()
     },
   }
 }

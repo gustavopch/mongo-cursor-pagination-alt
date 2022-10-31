@@ -3,6 +3,7 @@ import {
   AggregatePaginatedResult,
   aggregatePaginated,
 } from './aggregate-paginated'
+import { Sort } from './types'
 
 let sandbox: Sandbox
 
@@ -27,7 +28,7 @@ describe('aggregatePaginated', () => {
       { createdAt: '2020-03-23', color: 'green', _id: 8 },
     ])
 
-    const sort = {
+    const sort: Sort = {
       createdAt: 1,
       color: -1,
     }
