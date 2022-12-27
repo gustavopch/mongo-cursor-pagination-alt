@@ -33,7 +33,7 @@
     "@types/base64-url": "2.2.0",
     "@types/fs-extra": "~9.0.13",
     "@types/jest": "~29.2.0",
-    "@types/lodash.get": "4.4.6",
+    "@types/lodash.get": "4.4.7",
     "@types/lodash.mapvalues": "4.6.6",
     "fs-extra": "~10.1.0",
     "husky": "4.3.0",
