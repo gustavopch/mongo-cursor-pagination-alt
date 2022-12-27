@@ -1,6 +1,7 @@
-# mongodb-cursor-pagination
+# [mongodb-cursor-pagination](<https://github.com/murshidazher/mongo-cursor-pagination>) [![npm](https://img.shields.io/npm/v/mongo-cursor-pagination.svg?label=&color=0080FF)](https://github.com/murshidazher/mongo-cursor-pagination/releases/latest)
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/murshidazher/mongo-cursor-pagination/Release?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/murshidazher/mongo-cursor-pagination/release.yml?branch=master&style=flat-square)
+![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
 > Cursor-based pagination for MongoDB.
 
@@ -8,7 +9,7 @@ Based on [mongo-cursor-pagination](https://github.com/mixmaxhq/mongo-cursor-pagi
 
 <!-- toc -->
 
-- [mongodb-cursor-pagination](#mongodb-cursor-pagination)
+- [mongodb-cursor-pagination ](#mongodb-cursor-pagination-)
   - [The problem](#the-problem)
   - [The solution](#the-solution)
   - [Installation](#installation)
