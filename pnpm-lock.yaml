@@ -7,7 +7,7 @@ specifiers:
   '@types/fs-extra': ~9.0.13
   '@types/jest': ~29.2.0
   '@types/lodash.get': 4.4.7
-  '@types/lodash.mapvalues': 4.6.6
+  '@types/lodash.mapvalues': 4.6.7
   base64-url: ^2.3.3
   bson: ^4.7.0
   fs-extra: ~10.1.0
@@ -36,7 +36,7 @@ devDependencies:
   '@types/fs-extra': 9.0.13
   '@types/jest': 29.2.0
   '@types/lodash.get': 4.4.7
-  '@types/lodash.mapvalues': 4.6.6
+  '@types/lodash.mapvalues': 4.6.7
   fs-extra: 10.1.0
   husky: 4.3.0
   jest: 29.2.2
@@ -2815,8 +2815,8 @@ packages:
       '@types/lodash': 4.14.186
     dev: true
 
-  /@types/lodash.mapvalues/4.6.6:
-    resolution: {integrity: sha512-Mt9eg3AqwAt5HShuOu8taiIYg0sLl4w3vDi0++E0VtiOtj9DqQHaxVr3wicVop0eDEqr5ENbht7vsLJlkMHL+w==}
+  /@types/lodash.mapvalues/4.6.7:
+    resolution: {integrity: sha512-yGTo9zD60Iw1Q+YBvx4Ad7RDj5rA6EpvYTpVPVsfe6pwHcwDcGChSqL1n2sPBMbCeHJ3R5kcaqpkdlrFe/y4Vg==}
     dependencies:
       '@types/lodash': 4.14.186
     dev: true
