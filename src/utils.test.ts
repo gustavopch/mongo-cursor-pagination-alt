@@ -50,7 +50,7 @@ describe('buildCursor', () => {
 })
 
 const cursorString =
-  'eyJjcmVhdGVkQXQiOnsiJGRhdGUiOiIyMDIwLTAzLTI3VDEyOjAwOjAwWiJ9LCJfaWQiOnsiJG9pZCI6IjVlN2UwNGFiMmEyYzFjYTk2MWI2MDM5ZiJ9fQ'
+  'eyJjcmVhdGVkQXQiOnsiJGRhdGUiOiIyMDIwLTAzLTI3VDEyOjAwOjAwWiJ9LCJfaWQiOnsiJG9pZCI6IjVlN2UwNGFiMmEyYzFjYTk2MWI2MDM5ZiJ9fQ=='
 
 const cursorObject = {
   createdAt: new Date('2020-03-27T12:00:00Z'),

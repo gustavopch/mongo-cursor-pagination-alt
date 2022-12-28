@@ -15,12 +15,23 @@ export const buildCursor = <TDocument extends BaseDocument>(
   }, {} as CursorObject)
 }
 
+export const urlSafeCursor = (cursor: string) => {
+  let encoded = cursor.replace(/-/g, '+').replace(/_/g, '/');
+  while (encoded.length % 4)
+    encoded += '=';
+  return encoded;
+}
+
+export const unWrapCursor = (cursor: string) => {
+  return cursor.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
 export const encodeCursor = (cursorObject: CursorObject): string => {
-  return base64Url.encode(EJSON.stringify(cursorObject))
+  return urlSafeCursor(base64Url.encode(EJSON.stringify(cursorObject)));
 }
 
 export const decodeCursor = (cursorString: string): CursorObject => {
-  return EJSON.parse(base64Url.decode(cursorString)) as CursorObject
+  return EJSON.parse(base64Url.decode(unWrapCursor(cursorString))) as CursorObject
 }
 
 export const buildQueryFromCursor = (
