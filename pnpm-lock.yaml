@@ -21,7 +21,7 @@ specifiers:
   ts-jest: 29.0.3
   tsdx: 0.14.1
   tslib: 2.4.1
-  typescript: 4.5.5
+  typescript: 4.9.4
 
 dependencies:
   base64-url: 2.3.3
@@ -43,10 +43,10 @@ devDependencies:
   lint-staged: 10.5.4
   mongodb: 4.13.0
   mongodb-memory-server: 8.10.2
-  ts-jest: 29.0.3_nt6g33by65yu7b4gqykyqotr4y
+  ts-jest: 29.0.3_p6ekqnroyms5nhqbfxosryz7rm
   tsdx: 0.14.1
   tslib: 2.4.1
-  typescript: 4.5.5
+  typescript: 4.9.4
 
 packages:
 
@@ -9005,7 +9005,7 @@ packages:
       yargs-parser: 18.1.3
     dev: true
 
-  /ts-jest/29.0.3_nt6g33by65yu7b4gqykyqotr4y:
+  /ts-jest/29.0.3_p6ekqnroyms5nhqbfxosryz7rm:
     resolution: {integrity: sha512-Ibygvmuyq1qp/z3yTh9QTwVVAbFdDy/+4BtIQR2sp6baF2SJU/8CKK/hhnGIDY2L90Az2jIqTwZPnN2p+BweiQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -9034,7 +9034,7 @@ packages:
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.3.8
-      typescript: 4.5.5
+      typescript: 4.9.4
       yargs-parser: 21.1.1
     dev: true
 
@@ -9195,8 +9195,8 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript/4.5.5:
-    resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
+  /typescript/4.9.4:
+    resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
