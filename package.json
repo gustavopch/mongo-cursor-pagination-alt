@@ -45,6 +45,6 @@
     "ts-jest": "29.0.3",
     "tsdx": "0.14.1",
     "tslib": "2.4.1",
-    "typescript": "4.5.5"
+    "typescript": "4.9.4"
   }
 }
