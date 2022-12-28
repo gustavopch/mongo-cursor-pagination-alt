@@ -1,6 +1,6 @@
-# [mongodb-cursor-pagination](<https://github.com/murshidazher/mongo-cursor-pagination>) [![npm](https://img.shields.io/npm/v/mongo-cursor-pagination.svg?label=&color=0080FF)](https://github.com/murshidazher/mongo-cursor-pagination/releases/latest)
+# [mongodb-cursor-pagination](<https://github.com/murshidazher/mongodb-cursor-pagination>) [![npm](https://img.shields.io/npm/v/mongodb-cursor-pagination.svg?label=&color=0080FF)](https://github.com/murshidazher/mongodb-cursor-pagination/releases/latest)
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/murshidazher/mongo-cursor-pagination/release.yml?branch=master&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/murshidazher/mongodb-cursor-pagination/release.yml?branch=master&style=flat-square)
 ![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
 > Cursor-based pagination for MongoDB.
@@ -9,7 +9,7 @@ Based on [mongo-cursor-pagination](https://github.com/mixmaxhq/mongo-cursor-pagi
 
 <!-- toc -->
 
-- [mongodb-cursor-pagination ](#mongodb-cursor-pagination-)
+- [mongodb-cursor-pagination](#mongodb-cursor-pagination-)
   - [The problem](#the-problem)
   - [The solution](#the-solution)
   - [Installation](#installation)
@@ -177,6 +177,8 @@ Runs a paginated aggregation on top of `Collection#aggregate`.
     - `cursor`: An opaque string pointing to this document in the context of this query. It can be passed to parameters `after` or `before` to get a page starting after or before this document.
 - `pageInfo`:
   - Properties
+    - `count`: The number of nodes fetched for current page.
+    - `totalCount`: The number of nodes available based on query.
     - `startCursor`: The cursor of the first document in this page.
     - `endCursor`: The cursor of the last document in this page.
     - `hasPreviouPage`: Whether there's another page before this one.
