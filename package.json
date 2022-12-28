@@ -15,6 +15,7 @@
   "scripts": {
     "build": "tsdx build --tsconfig ./tsconfig.build.json",
     "lint": "tsdx lint src test",
+    "lint:fix": "tsdx lint src test --fix",
     "type-check": "tsc --noEmit",
     "test": "jest --detectOpenHandles --config 'jest.json'"
   },
