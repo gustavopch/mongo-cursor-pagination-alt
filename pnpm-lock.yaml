@@ -9,7 +9,7 @@ specifiers:
   '@types/lodash.get': 4.4.7
   '@types/lodash.mapvalues': 4.6.7
   base64-url: 2.3.3
-  bson: 4.7.0
+  bson: 4.7.2
   fs-extra: 11.1.0
   husky: 8.0.3
   jest: 29.3.1
@@ -25,7 +25,7 @@ specifiers:
 
 dependencies:
   base64-url: 2.3.3
-  bson: 4.7.0
+  bson: 4.7.2
   lodash.get: 4.4.2
   lodash.mapvalues: 4.6.0
 
@@ -3719,8 +3719,8 @@ packages:
       node-int64: 0.4.0
     dev: true
 
-  /bson/4.7.0:
-    resolution: {integrity: sha512-VrlEE4vuiO1WTpfof4VmaVolCVYkYTgB9iWgYNOrVlnifpME/06fhFRmONgBhClD5pFC1t9ZWqFUQEQAzY43bA==}
+  /bson/4.7.2:
+    resolution: {integrity: sha512-Ry9wCtIZ5kGqkJoi6aD8KjxFZEx78guTQDnpXWiNthsxzrxAK/i8E6pCHAIZTbaEFWcOCvbecMukfK7XUvyLpQ==}
     engines: {node: '>=6.9.0'}
     dependencies:
       buffer: 5.7.1
@@ -7417,7 +7417,7 @@ packages:
     resolution: {integrity: sha512-9l9n4Nk2BYZzljW3vHah3Z0rfS5npKw6ktnkmFgTcnzaXH1DRm3pDl6VMHu84EVb1lzmSaJC4OzWZqTkB5i2wg==}
     engines: {node: '>=12.9.0'}
     dependencies:
-      bson: 4.7.0
+      bson: 4.7.2
       denque: 2.1.0
       mongodb-connection-string-url: 2.5.4
       socks: 2.7.1
@@ -7432,7 +7432,7 @@ packages:
     resolution: {integrity: sha512-+taZ/bV8d1pYuHL4U+gSwkhmDrwkWbH1l4aah4YpmpscMwgFBkufIKxgP/G7m87/NUuQzc2Z75ZTI7ZOyqZLbw==}
     engines: {node: '>=12.9.0'}
     dependencies:
-      bson: 4.7.0
+      bson: 4.7.2
       mongodb-connection-string-url: 2.5.4
       socks: 2.7.1
     optionalDependencies:
