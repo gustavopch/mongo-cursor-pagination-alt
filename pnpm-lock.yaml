@@ -1,8 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@commitlint/cli': 17.3.0
-  '@commitlint/config-conventional': 17.3.0
+  '@commitlint/cli': 17.4.4
+  '@commitlint/config-conventional': 17.4.4
   '@types/base64-url': 2.2.0
   '@types/fs-extra': 9.0.13
   '@types/jest': 29.4.0
@@ -30,8 +30,8 @@ dependencies:
   lodash.mapvalues: 4.6.0
 
 devDependencies:
-  '@commitlint/cli': 17.3.0
-  '@commitlint/config-conventional': 17.3.0
+  '@commitlint/cli': 17.4.4
+  '@commitlint/config-conventional': 17.4.4
   '@types/base64-url': 2.2.0
   '@types/fs-extra': 9.0.13
   '@types/jest': 29.4.0
@@ -2028,8 +2028,8 @@ packages:
       minimist: 1.2.7
     dev: true
 
-  /@commitlint/cli/17.3.0:
-    resolution: {integrity: sha512-/H0md7TsKflKzVPz226VfXzVafJFO1f9+r2KcFvmBu08V0T56lZU1s8WL7/xlxqLMqBTVaBf7Ixtc4bskdEEZg==}
+  /@commitlint/cli/17.4.4:
+    resolution: {integrity: sha512-HwKlD7CPVMVGTAeFZylVNy14Vm5POVY0WxPkZr7EXLC/os0LH/obs6z4HRvJtH/nHCMYBvUBQhGwnufKfTjd5g==}
     engines: {node: '>=v14'}
     hasBin: true
     dependencies:
@@ -2048,8 +2048,8 @@ packages:
       - '@swc/wasm'
     dev: true
 
-  /@commitlint/config-conventional/17.3.0:
-    resolution: {integrity: sha512-hgI+fN5xF8nhS9uG/V06xyT0nlcyvHHMkq0kwRSr96vl5BFlRGaL2C0/YY4kQagfU087tmj01bJkG9Ek98Wllw==}
+  /@commitlint/config-conventional/17.4.4:
+    resolution: {integrity: sha512-u6ztvxqzi6NuhrcEDR7a+z0yrh11elY66nRrQIpqsqW6sZmpxYkDLtpRH8jRML+mmxYQ8s4qqF06Q/IQx5aJeQ==}
     engines: {node: '>=v14'}
     dependencies:
       conventional-changelog-conventionalcommits: 5.0.0
