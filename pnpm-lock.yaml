@@ -5,7 +5,7 @@ specifiers:
   '@commitlint/config-conventional': 17.4.4
   '@types/base64-url': 2.2.0
   '@types/fs-extra': 11.0.1
-  '@types/jest': 29.4.0
+  '@types/jest': 29.4.1
   '@types/lodash.get': 4.4.7
   '@types/lodash.mapvalues': 4.6.7
   base64-url: 2.3.3
@@ -34,7 +34,7 @@ devDependencies:
   '@commitlint/config-conventional': 17.4.4
   '@types/base64-url': 2.2.0
   '@types/fs-extra': 11.0.1
-  '@types/jest': 29.4.0
+  '@types/jest': 29.4.1
   '@types/lodash.get': 4.4.7
   '@types/lodash.mapvalues': 4.6.7
   fs-extra: 11.1.0
@@ -2864,8 +2864,8 @@ packages:
       pretty-format: 25.5.0
     dev: true
 
-  /@types/jest/29.4.0:
-    resolution: {integrity: sha512-VaywcGQ9tPorCX/Jkkni7RWGFfI11whqzs8dvxF41P17Z+z872thvEvlIbznjPJ02kl1HMX3LmLOonsj2n7HeQ==}
+  /@types/jest/29.4.1:
+    resolution: {integrity: sha512-zDQSWXG+ZkEvs2zFFMszePhx4euKz+Yt3Gg1P+RHjfJBinTTr6L2DEyovO4V/WrKXuF0Dgn56GWGZPDa6TW9eQ==}
     dependencies:
       expect: 29.5.0
       pretty-format: 29.5.0
