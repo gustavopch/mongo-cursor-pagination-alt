@@ -21,7 +21,7 @@ specifiers:
   ts-jest: 29.0.5
   tsdx: 0.14.1
   tslib: 2.4.1
-  typescript: 4.9.4
+  typescript: 4.9.5
 
 dependencies:
   base64-url: 2.3.3
@@ -43,10 +43,10 @@ devDependencies:
   lint-staged: 13.1.0
   mongodb: 4.13.0
   mongodb-memory-server: 8.12.0
-  ts-jest: 29.0.5_cdjgginuefokmzmklysahvrmme
+  ts-jest: 29.0.5_doipufordlnvh5g4adbwayvyvy
   tsdx: 0.14.1
   tslib: 2.4.1
-  typescript: 4.9.4
+  typescript: 4.9.5
 
 packages:
 
@@ -2117,13 +2117,13 @@ packages:
       '@types/node': 18.11.8
       chalk: 4.1.2
       cosmiconfig: 8.1.0
-      cosmiconfig-typescript-loader: 4.3.0_zt2c4hr4xyunqqc3rbo64qwc6q
+      cosmiconfig-typescript-loader: 4.3.0_77hgg3dj4qq4dyy6w2p25rbl5y
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
-      ts-node: 10.9.1_f7vru3k7mdnbm2sd4f5h6mkxpa
-      typescript: 4.9.4
+      ts-node: 10.9.1_cwmfaodjxktzyixrxyzxzjglky
+      typescript: 4.9.5
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -4057,7 +4057,7 @@ packages:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
     dev: true
 
-  /cosmiconfig-typescript-loader/4.3.0_zt2c4hr4xyunqqc3rbo64qwc6q:
+  /cosmiconfig-typescript-loader/4.3.0_77hgg3dj4qq4dyy6w2p25rbl5y:
     resolution: {integrity: sha512-NTxV1MFfZDLPiBMjxbHRwSh5LaLcPMwNdCutmnHJCKoVnlvldPWlllonKwrsRJ5pYZBIBGRWWU2tfvzxgeSW5Q==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -4068,8 +4068,8 @@ packages:
     dependencies:
       '@types/node': 18.11.8
       cosmiconfig: 8.1.0
-      ts-node: 10.9.1_f7vru3k7mdnbm2sd4f5h6mkxpa
-      typescript: 4.9.4
+      ts-node: 10.9.1_cwmfaodjxktzyixrxyzxzjglky
+      typescript: 4.9.5
     dev: true
 
   /cosmiconfig/6.0.0:
@@ -9073,7 +9073,7 @@ packages:
       yargs-parser: 18.1.3
     dev: true
 
-  /ts-jest/29.0.5_cdjgginuefokmzmklysahvrmme:
+  /ts-jest/29.0.5_doipufordlnvh5g4adbwayvyvy:
     resolution: {integrity: sha512-PL3UciSgIpQ7f6XjVOmbi96vmDHUqAyqDr8YxzopDqX3kfgYtX1cuNeBjP+L9sFXi6nzsGGA6R3fP3DDDJyrxA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -9102,11 +9102,11 @@ packages:
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.3.8
-      typescript: 4.9.4
+      typescript: 4.9.5
       yargs-parser: 21.1.1
     dev: true
 
-  /ts-node/10.9.1_f7vru3k7mdnbm2sd4f5h6mkxpa:
+  /ts-node/10.9.1_cwmfaodjxktzyixrxyzxzjglky:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -9132,7 +9132,7 @@ packages:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 4.9.4
+      typescript: 4.9.5
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
@@ -9298,8 +9298,8 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript/4.9.4:
-    resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
+  /typescript/4.9.5:
+    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
