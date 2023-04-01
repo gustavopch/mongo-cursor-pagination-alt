@@ -1,4 +1,4 @@
-import { Collection } from 'mongodb'
+import { Collection } from 'mongodb/src/collection'
 
 import { BaseDocument, Projection, Query, Sort } from './types'
 import {
