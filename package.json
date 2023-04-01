@@ -40,7 +40,7 @@
     "husky": "8.0.3",
     "jest": "29.5.0",
     "lint-staged": "13.1.0",
-    "mongodb": "4.13.0",
+    "mongodb": "5.1.0",
     "mongodb-memory-server": "8.12.1",
     "ts-jest": "29.0.5",
     "tsdx": "0.14.1",
