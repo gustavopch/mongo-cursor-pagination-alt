@@ -26,7 +26,7 @@
     "lodash.mapvalues": "4.6.0"
   },
   "peerDependencies": {
-    "mongodb": "5.1.0"
+    "mongodb": ">=5.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.5.1",

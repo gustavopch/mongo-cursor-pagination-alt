@@ -1,4 +1,4 @@
-import { ObjectId } from 'bson'
+import { ObjectId } from 'mongodb'
 import { Sort } from './types'
 
 import {
@@ -57,6 +57,8 @@ const cursorObject = {
   _id: new ObjectId('5e7e04ab2a2c1ca961b6039f'),
 }
 
+const stringifyCursorObject = JSON.stringify(cursorObject)
+
 describe('encodeCursor', () => {
   it('encodes correctly', () => {
     expect(encodeCursor(cursorObject)).toEqual(cursorString)
@@ -65,7 +67,9 @@ describe('encodeCursor', () => {
 
 describe('decodeCursor', () => {
   it('decodes correctly', () => {
-    expect(decodeCursor(cursorString)).toEqual(cursorObject)
+    expect(JSON.stringify(decodeCursor(cursorString))).toEqual(
+      stringifyCursorObject,
+    )
   })
 })
 
@@ -116,15 +120,17 @@ describe('normalizeDirectionParams', () => {
       },
     })
 
-    expect(result).toEqual({
-      limit: 10,
-      cursor: cursorObject,
-      sort: {
-        createdAt: 1,
-        _id: 1, // Added implicitly
-      },
-      paginatingBackwards: false,
-    })
+    expect(JSON.stringify(result)).toEqual(
+      JSON.stringify({
+        limit: 10,
+        cursor: JSON.parse(stringifyCursorObject), // Ensure correct serialization
+        sort: {
+          createdAt: 1,
+          _id: 1, // Added implicitly
+        },
+        paginatingBackwards: false,
+      }),
+    )
   })
 
   it('works well when paginating backwards', () => {
@@ -136,16 +142,18 @@ describe('normalizeDirectionParams', () => {
       },
     })
 
-    expect(result).toEqual({
-      limit: 10,
-      cursor: cursorObject,
-      sort: {
-        // Reversed values
-        createdAt: -1,
-        _id: -1, // Added implicitly
-      },
-      paginatingBackwards: true,
-    })
+    expect(JSON.stringify(result)).toEqual(
+      JSON.stringify({
+        limit: 10,
+        cursor: JSON.parse(stringifyCursorObject), // Ensure correct serialization
+        sort: {
+          // Reversed values
+          createdAt: -1,
+          _id: -1, // Added implicitly
+        },
+        paginatingBackwards: true,
+      }),
+    )
   })
 
   it('clamps `limit` to a minimum', () => {
